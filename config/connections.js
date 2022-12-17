@@ -19,8 +19,6 @@ module.exports.connect = function(done){
 
         state.db = data.db(dbname)
         done()
-    }).catch((error) => {
-        return done(error) 
     })
 }
 
