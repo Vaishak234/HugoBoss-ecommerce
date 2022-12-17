@@ -1,7 +1,10 @@
 <div class="header__background" style="background-color: black;">
     {{>users/header}}
 </div>
-<section>
+<section id="checkoutcontainer">
+   <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+     </div>
     <div class="checkout">
         <div class="checkout__left">
             <div class="section__card">
@@ -172,6 +175,12 @@
 
 
 <style>
+  .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
   .checkout{
     display: flex;
     justify-content: center;
@@ -295,6 +304,16 @@
 </style>
 
 <script>
+
+  
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('checkoutContainer').style.display ='flex'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
+
 
     function showCard(){
        

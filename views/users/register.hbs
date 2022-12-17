@@ -3,7 +3,7 @@
 </div>
 
 
-<section>
+<section id="productsContainer">
     <div class="register__container">
         <div class="register">
             <h2 class="title">Create an Account</h2>
@@ -90,3 +90,13 @@
         margin-top: 5px;
     }
 </style>
+
+<script>
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('productsContainer').style.display ='flex'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
+</script>

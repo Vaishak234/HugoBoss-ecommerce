@@ -2,7 +2,10 @@
     {{>users/header }}
 </div>
 
-<section class="cart__section">
+ <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+ </div>
+<section id="cartContainer" class="cart__section">
 
  <h1 class="cart__title">Shopping Bag</h1>
   <div class="cart">
@@ -92,6 +95,12 @@
 {{>users/footer}}
 
 <style>
+    .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
      .header__background{
         background-color: black;
     }
@@ -216,6 +225,13 @@
 </style>
 
 <script>
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('cartContainer').style.display ='block'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
 
       function deleteProduct(id,size){
          let deleteProduct = document.getElementById(id+size)

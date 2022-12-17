@@ -2,7 +2,10 @@
     {{>users/header}}
 </div>
 
-<div class="orders__container">
+ <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+     </div>
+<div id="productsContainer" class="orders__container">
       <h2 class="title">Your Orders</h2>
    {{#if products}} 
     {{#each products}}
@@ -63,6 +66,12 @@
 
 
 <style>
+    .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
     .header__background{
         background-color: black;
     }
@@ -166,7 +175,15 @@
 
 
 <script>
-   
+ 
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('productsContainer').style.display ='flex'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
+
    async function closeReviewCard(id){
       console.log(id)
       let btn = document.getElementById(id)

@@ -1,7 +1,10 @@
 <div class="header__background" style="background-color: black;">
     {{>users/header}}
 </div>
-<div class="section">
+ <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+     </div>
+<div id="productsContainer" class="section">
 <div class="product__container">
     <div class="product__left">
        <div class="imageBox">
@@ -70,7 +73,7 @@
       Product added to the cart
   </div>
   </div>
-<div class="review__container">
+<div id="productsContainer" class="review__container">
  {{#if review}}
  <div class="title">Reviews</div>
    {{#each review}}
@@ -94,7 +97,12 @@
 
 
 <style>
-    
+    .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
     select {
     -moz-appearance:none; /* Firefox */
     -webkit-appearance:none; /* Safari and Chrome */
@@ -271,6 +279,15 @@
 </style>
 
 <script>
+
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('productsContainer').style.display ='flex'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
+
     
     let imgId = document.getElementById('imgId').value
     function viewImg() {

@@ -1,8 +1,10 @@
 <div class="header__background">
     {{>users/header loggedIn}}
 </div>
-
-<div class="profile__container">
+ <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+     </div>
+<div id="productsContainer" class="profile__container">
   
      <div class="profile__left">
         <div class="content">
@@ -55,6 +57,12 @@
 </div>
 
 <style>
+    .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
     .header__background{
         background-color: black;
     }
@@ -158,6 +166,13 @@
 
 <script>
 
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('productsContainer').style.display ='flex'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
      // To check radio btn
      let genderBtn = document.querySelector('#genderInp').value
      console.log(genderBtn)

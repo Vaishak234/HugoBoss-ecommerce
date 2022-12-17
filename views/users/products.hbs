@@ -3,8 +3,12 @@
     {{>users/header}}
 </div>
 
-<section style="min-height: 80vh;">
-   <div class="product__container">
+<section id="sessionContainer" style="min-height: 80vh;">
+
+     <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+     </div>
+     <div id="productsContainer" class="product__container" style="display:none;">
       <h1 class="title">{{pTitle}} collections</h1>
     <div class="products">
        
@@ -42,6 +46,12 @@
         margin: auto;
        
     }
+    .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
     .products{
         display: flex;
         gap: 10px;
@@ -49,7 +59,7 @@
         flex-wrap: wrap;
         padding: 30px 30px;
         justify-content: center;
-        height: 800px;
+        
        
     }
     .product__container .title{
@@ -91,3 +101,14 @@
         margin-top: -16.8px;
     }
 </style>
+
+
+<script>
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('productsContainer').style.display ='flex'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
+</script>

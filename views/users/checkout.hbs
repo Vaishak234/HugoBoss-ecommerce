@@ -3,7 +3,10 @@
 </div>
 
 <section>
-    <div class="checkout">
+   <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+     </div>
+    <div id="checkoutcontainer" class="checkout">
         <div class="checkout__left">
             <div class="section__card">
                 <h3>My Informations</h3>
@@ -138,6 +141,12 @@
 
 
 <style>
+  .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
   .checkout{
     display: flex;
     justify-content: center;
@@ -226,3 +235,13 @@
     margin-top: 8px;
    }
 </style>
+
+<script>
+
+    window.addEventListener('load',()=>{
+       
+            document.getElementById('checkoutcontainer').style.display ='flex'
+            document.getElementById('circularLoader').style.display ='none'
+       
+    })
+</script>
