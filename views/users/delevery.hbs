@@ -1,11 +1,12 @@
 <div class="header__background" style="background-color: black;">
     {{>users/header}}
 </div>
-<section id="checkoutcontainer">
-   <div class="loaderContainer">
+<div class="loaderContainer">
         <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
      </div>
-    <div class="checkout">
+<section >
+   
+    <div id="checkoutContainer" class="checkout">
         <div class="checkout__left">
             <div class="section__card">
                 <h3>My Informations</h3>
@@ -107,7 +108,7 @@
                          <input required type="text" name="mobile" value="{{details.mobile}}" placeholder="mobile"> 
                         </div>
                      </div>
-                     <button type="submit">Continue</button>
+                     <button  type="submit">Continue</button>
                  </form>
             </div>
             {{#if error}}

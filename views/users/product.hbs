@@ -54,7 +54,7 @@
             
 
         <button id="addBtn" onclick="addToCart('{{product._id}}')"> 
-            <div id="circularLoader" class="spinner-border text-primary" style="display: none;" role="status">
+            <div id="circularLoader1" class="spinner-border text-primary" style="display: none;" role="status">
             </div>  
            <span id="addText">Add</span>
         </button>
@@ -302,13 +302,13 @@
                 .then(data=>{
                  
                     document.getElementById('addBtn').style.background= 'rgba(0,0,0,.1)'
-                    document.getElementById('circularLoader').style.display= 'block'
+                    document.getElementById('circularLoader1').style.display= 'block'
                     document.getElementById('addText').style.display= 'none'
 
                     setTimeout(()=>{
                          if(data.status) {
                        document.getElementById('addBtn').style.background= 'rgba(0,0,0)'
-                       document.getElementById('circularLoader').style.display= 'none'
+                       document.getElementById('circularLoader1').style.display= 'none'
                        document.getElementById('addText').style.display= 'block'
                        document.getElementById('addAlert').style.display= 'block'
                        }
