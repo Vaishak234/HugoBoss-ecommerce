@@ -1,0 +1,342 @@
+<div class="header__background" style="background-color: black;">
+    {{>users/header}}
+</div>
+<div class="section">
+<div class="product__container">
+    <div class="product__left">
+       <div class="imageBox">
+        <input type="text" id="imgId" value="{{product._id}}" hidden>
+        {{#each product.images}}
+          
+               <img src="/uploads/{{this}}" alt="photo" onclick="viewImg()" >
+          
+        {{/each}}
+       
+       </div>
+       <div class="contentBox">
+          <h5 class="description">{{product.description}}</h5>
+          <p class="fit"><span>Fit --</span> {{product.fit}}</p>
+          <p class="composition"><span>Composition --</span> {{product.composition}}</p>
+          <p class="artno"><span>Art.no --</span> {{product.artno}}</p>
+       </div>
+    </div>
+   
+    <div class="product__right">
+        <h4 class="title">{{product.title}}</h4>
+        <p class="price">Rs. {{product.price}}</p>
+        <p class="color">Colour :  {{product.color}}</p>
+           
+            <select {{#if product.outOfDelevery}}disabled{{/if}} required id="sizeInp" name="cateogry"  >
+              <option hidden value="">Select Size</option>
+                {{#if product.small}}
+                   <option value="small">Small</option>
+                {{/if}}
+                {{#if product.medium}}
+                 <option value="medium">Medium</option>
+                {{/if}}
+                {{#if product.large}}
+                <option value="large">Large</option>
+                {{/if}}
+                {{#if product.xl}}
+                <option value="xl">Xl</option>
+                {{/if}}
+                {{#if product.xxl}}
+                <option value="xxl">XXl</option>
+                {{/if}}
+                {{#if product.xxxl}}
+                     <option value="xxxl">XXXl</option>
+                {{/if}}
+            
+            </select>
+            
+
+        <button id="addBtn" onclick="addToCart('{{product._id}}')"> 
+            <div id="circularLoader" class="spinner-border text-primary" style="display: none;" role="status">
+            </div>  
+           <span id="addText">Add</span>
+        </button>
+        <div class="shareBox text-primary" onclick="shareProduct()">
+            <i class="fa-solid fa-share-nodes"></i>
+            share
+        </div>
+        {{#if product.outOfDelevery}}
+           <h3 class="mt-4 text-danger">Out of delevery</h3>
+           {{/if}}
+    </div>
+   
+</div>
+ <div class="alert alert-success align-items-center" id="addAlert" role="alert">
+    <i class="fa-regular fa-circle-check"></i>
+      Product added to the cart
+  </div>
+  </div>
+<div class="review__container">
+ {{#if review}}
+ <div class="title">Reviews</div>
+   {{#each review}}
+    <div class="review__card">
+        <div class="review">
+            <div class="first">
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" alt="">
+                <span>{{email}}</span>
+            </div>
+            <p>{{this.review}}</p>
+        </div>
+    </div>
+    {{/each}}
+    {{/if}}
+  </div>
+
+  
+
+
+{{>users/footer}}
+
+
+<style>
+    
+    select {
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    }
+    .product__container{
+        width: 100%;
+        padding: 40px 30px;
+        position: relative;
+        display: flex;
+        scroll-behavior: smooth;
+        background-color:  rgb(250, 249, 248);
+        color: rgb(0, 0, 0);
+    }
+
+    .product__left{
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .product__right{
+        width: 30%;
+        position: sticky;
+        top: 50px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        
+    }
+    .product__left img{
+        width: 49%;
+        height: 700px;
+        object-fit: cover;
+        
+    }
+    .product__left .imageBox{
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content:center ;
+      
+    }
+    .contentBox{
+        margin-top: 20px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        height: 250px;
+        justify-content: center;
+        padding: 50px;
+        position: absolute;
+        top: 735px;
+        width: 66.1%;
+        
+    }
+    .contentBox p{
+        font-size: 11px;
+        margin-bottom: 5px;
+       
+    }
+    .contentBox span{
+        font-size: 13px;
+        font-weight: 600;
+
+    }
+    .contentBox h5{
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+    .product__right .title{
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .product__right .price{
+        font-size: 20px;
+        margin-bottom: 20px;
+
+    }
+    .product__right .color{
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+    
+    .product__right select{
+        border: 1px solid rgba(0, 0, 0, 0.241);
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        margin-top: 5px;
+        outline: none;
+    }
+    .product__right select option{
+        color: rgba(0, 0, 0, 0.742);
+        padding: 5px;
+    }
+    .product__right button{
+        color: white;
+        background-color: rgba(0, 0, 0);
+        font-size: 15px;
+        font-weight: 700;
+        padding: 8px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        outline: none;
+    }
+   .product__left img:nth-child(2){
+      margin-bottom: 280px;
+   }
+   .alert{
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translate(-50%);
+        max-width:800px;
+        width: 60%;
+        text-align: start;
+        display: none;
+    }
+    .alert i{
+        margin-right: 20px;
+        font-size: 22px;
+    }
+    .review__container{
+        padding: 50px;
+    }
+    .review__container .title{
+        font-size: 22px;
+        font-weight: 600;
+    }
+     .review .first{
+        display: flex;
+        gap: 5px;
+        margin-bottom: 30px;
+     }
+    .review .first img{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        
+    }
+    .review .first span{
+        font-size: 16px;
+        margin-top: 3px;
+    }
+    .review__card{
+        background-color: white;
+        padding: 15px 10px;
+        margin-top: 20px;
+        max-width: 900px;
+    }
+    .review__card p{
+        font-size: 18px;
+        font-weight: 500;
+        margin-left: 5px;
+    }
+    .shareBox{
+        border-radius: 20px ;
+        width: 90px;
+        padding: 3px 7px;
+        align-items: center;
+        gap: 8px;
+        border: solid rgba(0, 0, 0, 0.39) 1px;
+        display: flex;
+        margin-top: 10px;
+    }
+
+</style>
+
+<script>
+    
+    let imgId = document.getElementById('imgId').value
+    function viewImg() {
+        location.href = '/product-image/'+imgId
+    }
+
+     function addToCart(id){
+       
+        const size  = document.getElementById('sizeInp').value
+         fetch('/add-to-cart/'+id+'/'+size)
+                .then(res=>res.json())
+                .then(data=>{
+                 
+                    document.getElementById('addBtn').style.background= 'rgba(0,0,0,.1)'
+                    document.getElementById('circularLoader').style.display= 'block'
+                    document.getElementById('addText').style.display= 'none'
+
+                    setTimeout(()=>{
+                         if(data.status) {
+                       document.getElementById('addBtn').style.background= 'rgba(0,0,0)'
+                       document.getElementById('circularLoader').style.display= 'none'
+                       document.getElementById('addText').style.display= 'block'
+                       document.getElementById('addAlert').style.display= 'block'
+                       }
+                    },1000)
+
+                    setTimeout(()=>{
+                       document.getElementById('addAlert').style.display= 'none'
+
+                    },3000)
+
+                })
+    }
+   
+
+   function shareProduct() {
+
+     navigator.share({
+       title: 'Web Share API Polyfill',
+        text: 'A polyfill for the Share API. Use it to share in both desktops and mobile devices.',
+        url: location.href,
+    
+        fbId: '123456789123456',
+        hashtags: 'javascript,shareAPI,polyfill'
+      },
+      {
+        // change this configurations to hide specific unnecessary icons
+        copy: true,
+        email: true,
+        print: true,
+        sms: true,
+        messenger: true,
+        facebook: true,
+        whatsapp: true,
+        twitter: true,
+        linkedin: true,
+        telegram: true,
+        skype: true,
+        pinterest: true,
+        language: 'pt' // specify the default language
+      }
+    )
+      .then( _ => console.log('Yay, you shared it :)'))
+      .catch( error => console.log('Oh noh! You couldn\'t share it! :\'(\n', error));
+       }
+ 
+     
+
+</script>

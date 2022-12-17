@@ -1,0 +1,110 @@
+
+{{>admin/sideNav}}
+
+
+   
+  <div class="products">
+    <div class="products__container">
+       <table>
+         <tr class="title__row mb-4">
+           <th>#</th>
+           <th>Title</th>
+           <th>Cateogry</th>
+           <th>Price</th>
+           <th>Color</th>
+           <th>Delevery</th>
+           <th>Actions</th>
+         </tr>
+        
+          {{#each products}}
+           
+             <tr id="{{this._id}}"   {{#if this.outOfDelevery}} style="background-color: rgba(0, 0, 0, 0.074);" {{/if}}>
+
+               <th scope="row" id="numTag" >{{ @index }}</th>
+               <td class="title__col">{{#if this.title}} {{this.title}} {{else}} null {{/if}} </td>
+               <td class="cateogry__col">{{#if this.cateogry}} {{this.cateogry}} {{else}} null {{/if}} </td>
+               <td  class="price__col">{{#if this.price}} Rs.{{this.price}} {{else}} null {{/if}} </td>
+               <td class="color__col"> {{#if this.color}} {{this.color}} {{else}} null {{/if}} </td>
+               <td class="delevery__col">{{#if this.delevery}} Rs.{{this.delevery}} {{else}} Free {{/if}} </td>
+               
+               <td>
+                  <a href="/admin/editProduct/{{this._id}}">
+                       <i class="fa-solid fa-pen-to-square text-primary"></i>        
+                   </a>
+                 <button onclick="deleteProduct('{{this._id}}')">
+                   <i class="fa fa-trash" aria-hidden="true"></i>
+                 </button>
+
+               </td>
+             </tr>
+            
+          {{/each}} 
+        </table>       
+    </div>
+  </div>
+
+
+<style>
+  .products{
+    padding: 20px;
+   
+  }
+  .products__container{
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    
+  }
+  .title{
+    text-align: center;
+    margin-bottom: 10px;
+    color: blue;
+  }
+  table{
+    width: 100%;
+  }
+  .title__row{
+   gap: 20px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.7);
+
+  }
+  tr::before {
+    content: "";
+    margin-left: 15px;
+   }
+  td a{
+    font-size: 25px;
+    padding: 5px;
+    text-decoration: none;
+
+  }
+  td button{
+    background-color: transparent;
+    border: none;
+     font-size: 20px;
+    color: blue;
+  }
+  
+</style>
+
+<script>
+  
+  var divs = document.querySelectorAll('#numTag');
+    for (var i = 0; i < divs.length; ++i) {
+        divs[i].innerHTML = i + 1;
+    }
+  
+
+  function deleteProduct(id){
+
+    fetch('/admin/deleteproduct/'+id)
+      .then(res=>res.json())
+      .then(data=>{
+         if(data.deleted){
+           document.getElementById(id).style.display='none'
+         }
+      })
+  }
+</script>

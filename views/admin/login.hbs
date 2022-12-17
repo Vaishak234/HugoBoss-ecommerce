@@ -1,0 +1,74 @@
+
+
+ <div
+      class="container d-flex justify-content-center"
+      style="margin-top: 20vh ;"
+    >
+      <div
+        class="rounded-4 p-5"
+        style="width:800px ;  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;"
+      >
+        <form action="" method="post">
+          <div class="form-group">
+            <h1 class="text-primary text-center" style="font-weight: 700;">
+              Login
+            </h1>
+          </div>
+           {{#each messages}}
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              <strong>
+                {{this}}
+              </strong>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+          {{/each}}
+          <div class="form-group ">
+            <label for="exampleInputEmail1">
+              Email address
+            </label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+            />
+
+            
+          </div>
+          <div class="form-group mt-3">
+            <label for="exampleInputPassword1">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Password"
+            />
+            <input hidden
+              name="authType"
+              class="form-control"
+              value="local"
+            />
+          </div>
+
+          <div class="d-grid gap-2 my-4">
+            <button type="submit" class="btn btn-primary">
+              Login
+            </button>
+          </div>
+          
+        </form>
+      </div>
+    </div>

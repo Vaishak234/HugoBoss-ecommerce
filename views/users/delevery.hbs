@@ -1,0 +1,344 @@
+<div class="header__background" style="background-color: black;">
+    {{>users/header}}
+</div>
+<section>
+    <div class="checkout">
+        <div class="checkout__left">
+            <div class="section__card">
+                <h3>My Informations</h3>
+                <p>Email : <span>{{user.email}}</span></p>
+            </div>
+            <div class="section__card">
+                <h3 class="address__title mb-3">Delevery Address</h3>
+
+                <p>{{details.firstname}} {{details.lastname}} </p>
+                <p>{{details.address}}, {{details.pincode}},{{details.city}},{{details.state}}</p>
+                <p>mobile no: {{details.mobile}}</p>
+
+                <button class="editbutton" onclick="showCard()">Edit</button>
+            </div>
+           
+            <div class="address__card" id="addressCard">
+                 <form action="/checkout/edit-details"  method="post">
+                     <h3 class="address__title">Home Address</h3>
+                     <div class="rows">
+                       <div class="inp__rows"> <label for="">Firstname</label>
+                       <input required type="text" name="firstname" value="{{details.firstname}}" placeholder="Firstname">
+                     </div>
+                       <div class="inp__rows"> <label for="">Lastname</label> 
+                       <input required type="text" name="lastname" value="{{details.lastname}}" placeholder="LastName">
+                    </div>
+                     </div>
+                     <div class="rows">
+                       <div class="inp__rows largeInp">
+                         <label for="">Address</label>
+                          <input required type="text" name="address" value="{{details.address}}" placeholder="Address">
+                        </div>
+                     </div>
+                     <div class="rows">
+                       <div class="inp__rows"> 
+                          <label for="">Pincode</label>
+                          <input required type="text" name="pincode" value="{{details.pincode}}" placeholder="Pincode"> 
+                        </div>
+                       <div class="inp__rows"> 
+                           <label for="">City</label>
+                           <input required type="text" name="city" value="{{details.city}}" placeholder="City">
+                         </div>
+                     </div>
+                     <div class="rows">
+                       <div class="inp__rows"> 
+                          <label for="">District</label>
+                           <input type="text" name="district" placeholder="District" value ='{{details.district}}'>
+                        </div>
+                       <div class="inp__rows"> 
+                          <label for="">State</label>
+                         <select name="state" id="state" >
+                            <option hidden value="{{details.state}}">Select...</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                <option value="Daman and Diu">Daman and Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+                     </div>
+                     <h3 class="address__title">Personal details</h3>
+                     <div class="rows">
+                       <div class="inp__rows">
+                         <label for="">Date of Birth</label>
+                         <input  type="date" name="dob" value="{{details.dob}}" placeholder="Date of Birth"> 
+                        </div>
+                       <div class="inp__rows"> 
+                         <label for="">Mobile number</label>
+                         <input required type="text" name="mobile" value="{{details.mobile}}" placeholder="mobile"> 
+                        </div>
+                     </div>
+                     <button type="submit">Continue</button>
+                 </form>
+            </div>
+            {{#if error}}
+            <p class="text-danger">{{error}}</p>
+             {{/if}}
+            <div class="section__card">
+                <h3>Payment & Discount</h3>
+                <p>choose mode of payment</p>
+            </div>
+             <div class="section__card " id="payment__popup" >
+              <h3>Payment Methods</h3>
+                <div>
+                <input required type="text" name="user" value="{{user._id}}" hidden>
+                  <div class="payment__options">
+                     <input required type="radio" name="payment" value="cod" id="cod__btn">
+                     <label for="cod__btn">Cash on Delevery</label>
+                  </div>
+
+                   <div class="payment__options">
+                     <input disabled required  type="radio" name="payment" value="paytm" id="paytm__btn">
+                      <label for="paytm__btn">paytm</label>
+                  </div>
+                   <p class="text-danger" style="display: none;" id="errMsg">please select a payment option for continue.</p>
+                  <p style="margin-top: 15px;">Total : <span>Rs.{{getTotal.total}}</span></p>
+                  <button onclick="confirmOrder('{{user._id}}')" style="width: 250px;margin-top:6px;">continue purchase</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="cart__right">
+            <div class="top">
+           <div class="first">
+             <p>Order value</p>
+             <p id="order">Rs.{{getTotal.order}}</p>
+           </div>
+           <div class="second">
+             <p>delevery</p>
+             <p id="delevery">Rs.{{getTotal.delevery}}</p>
+           </div>
+           <hr/>
+           <div class="third">
+             <p>Total</p>
+             <p id="total">Rs.{{getTotal.total}}</p>
+           </div>
+           <a href="/cart" class="view-cart__btn">
+             <p>view cart</p>
+             <p>+</p>
+           </a>
+        </div>
+        <div class="bottom">
+            <p>Prices and delivery costs are not confirmed until you've reached the checkout.</p>
+            <p>30 days withdrawal and free returns. Read more about return and refund policy.</p>
+            <p>Customers would receive an SMS/WhatsApp notifications regarding deliveries on the registered phone number</p>
+        </div>
+        
+        </div>
+
+       
+    </div>
+   
+</section>
+
+{{>users/footer}}
+
+
+<style>
+  .checkout{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding-top: 50px;
+  }
+  .section__card{
+    width: 600px;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 15px 20px 30px 20px;
+  }
+  .section__card h3{
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section__card p{
+     font-size: 14.5px;
+     margin-bottom: 0;
+  }
+  .address__card{
+    width: 600px;
+    margin-bottom: 25px;
+    display: none;
+    margin-top: 15px;
+  }
+  .address__title{
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+
+  }
+ .rows{
+    display: flex;
+     gap: 40px;
+ }
+ .inp__rows{
+    display: flex;
+    flex-direction: column;
+    width: 47.6%;
+    margin-bottom: 15px;
+   
+ }
+ .largeInp{
+    width: 100%;
+ }
+ .inp__rows input, select{
+    border: 1px solid rgba(0, 0, 0, 0.281);
+    outline: none;
+    height: 40px;
+    padding: 6px 7px;
+ }
+ 
+ label{
+    margin-bottom: 5px;
+ }
+ .editbutton{
+    background-color: transparent;
+    color: black;
+    border: none;
+    margin-bottom: -13px;
+    
+ }
+ .editbutton:hover {
+    text-decoration: underline;
+ }
+    .cart__right{
+        background-color: white;
+        width: 300px;
+        padding: 15px;
+        height: 470px;
+    }
+    .cart__right .top .first , .cart__right .top .second , .cart__right .top .third{
+        display: flex;
+        justify-content: space-between;
+    }
+    .cart__right .top .third{
+         margin-top: 20px;
+    }
+    .cart__right .top .third p{
+        font-size: 17px;
+        font-weight: 700;
+      
+    }
+    .cart__right .top button ,button{
+        background-color: rgba(0, 0, 0, 0.805);
+        width: 100%;
+        border: none;
+        color: white;
+        padding: 8px;
+        margin-top: 35px;
+        margin-bottom: 20px;
+    }
+   .cart__right .bottom p{
+    font-size: 13px;
+    margin-top: 8px;
+   }
+   .payment__options input{
+     margin-right: 5px;
+   }
+   .payment__options label{
+    font-size:17px ;
+   }
+   .view-cart__btn{
+      display: flex; 
+      justify-content:space-between;
+      padding-right:20px;
+      color:black;
+      text-decoration:none;
+      border:1px solid rgba(0, 0, 0, 0.532);
+      padding-left: 8px;
+      padding-top: 16px;
+   }
+   .view-cart__btn:hover{
+     color: black;
+     text-decoration: none;
+   }
+   
+   
+</style>
+
+<script>
+
+    function showCard(){
+       
+        document.getElementById('addressCard').style.display='block'
+    }
+
+     async function confirmOrder(user) {
+      
+      let isCodChecked = document.getElementById('cod__btn').checked
+      let isPaytmChecked = document.getElementById('paytm__btn').checked
+      
+      if(isCodChecked || isPaytmChecked){
+         let payment = document.querySelector("input[type='radio'][name=payment]:checked").value
+       
+         let data = {
+         payment,
+         user
+         }
+       await fetch('/payment',{
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(res=> res.json())
+        .then(async(data) =>{
+           console.log(data)
+           if(data.order){
+              if(data.payment == 'paytm'){
+                //location.href = '/payment/paynow-paytm'
+       
+               }
+               else{
+               await swal("success", "Your oreder is sucessfull!", "success");
+               location.href='/my-orders'
+               }
+           }
+           
+        })
+    
+      }else{
+        document.getElementById('errMsg').style.display ='block'
+      }
+     }
+ 
+</script>

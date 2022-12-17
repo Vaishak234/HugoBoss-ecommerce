@@ -1,0 +1,134 @@
+{{>admin/sideNav}}
+
+<div class="section__container">
+   
+   <div class="form__comtainer">
+   
+     <form action="/admin/addProduct" enctype="multipart/form-data" method="post">
+      <div class="title">
+        <h2>Add Product</h2>
+      </div>
+        <div class="input__container">
+            <input type="text" name="title" placeholder="Title">
+            <input type="number" inputmode="numeric" name="price" placeholder="Price">
+        </div>
+        <div class="input__container">
+            <input type="text" name="artno" placeholder="Art.no">
+            <input type="" name="color" placeholder="Colour">
+        </div>
+        <div class="input__container">
+            <input type="text" name="ratings" placeholder="Rating">
+            <input type="" name="fit" placeholder="Fit">
+        </div>
+        <div class="input__container">
+            <input type="text" name="composition" placeholder="Composition">
+              <select required id="sizeInput" name="cateogry"  >
+              <option hidden value="">Select</option>
+              <option value="mens">Mens</option>
+              <option value="womens">Womens</option>
+              <option value="kids">Kids</option>
+              <option value="accessories">Accessories</option>
+            </select>
+        </div>
+        <div class="input__container">
+            <input type="text" name="description" class="large" placeholder="Description">
+        </div>
+         <div class="input__container">
+            <input type="file" multiple name="images" class="images" placeholder="Select images">
+            <input type="number"  name="delevery" class="delevery" placeholder="Delevery">
+        </div>
+        
+        <div class="input__size">
+            <label  for="">Size : </label>
+            <input type="checkbox"  name="small" id="small"  value="true"> <label for="small">Small</label>
+            <input type="checkbox"  name="medium" id="medium"  value="true"> <label for="medium">Medium</label>
+            <input type="checkbox"  name="large" id="large" value="true"> <label for="large">Large</label>
+            <input type="checkbox"  name="xl" id="xl" value="true"> <label for="Xl">Xl</label>
+            <input type="checkbox"  name="xxl " id="xxl" value="true"> <label for="xxl">XXl</label>
+            <input type="checkbox"  name="xxxl" id="xxxl" value="true"> <label for="xxxl">XXXl</label>
+        </div>
+         
+        <button type="submit" class="inp-btn">Add Product</button>
+     </form>
+   </div>
+</div>
+
+
+
+
+<style>
+    .section__container{
+        display: flex;
+        justify-content: center;
+        padding: 30px;
+    
+    }
+    .form__container{
+        display: flex;
+        justify-content: center;
+       
+    }
+    form{
+        max-width: 1200px;
+        padding: 30px 20px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    .input__container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        column-gap: 30px;
+        flex: 1;
+    }
+    .input__container input ,.input__container select{
+        width: 500px;
+        padding: 10px 15px 10px 10px;
+        outline: none;
+        margin: 20px;
+    }
+    .input__container .large{
+        width: 1080px;
+        padding-bottom: 65px;
+        overflow-wrap: break-word;
+    }
+    .inp-btn{
+        width: 200px;
+        color: white;
+        outline: none;
+        border: none;
+        font-size: 18px;
+        font-weight: 700;
+        padding: 12px 20px;
+        background-color: rgba(0, 0, 0, 0.738);
+        margin-left: 20px;
+        margin-top: 30px;
+    }
+    .inp-btn:hover{
+        background-color: rgba(0, 0, 0, 0.444);
+    }
+    .title{
+        margin-left: 20px;
+
+    }
+    .title h2{
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.563);
+    }
+    .delevery{
+        max-width: 22%;
+    }
+    .input__container .images{
+        width: 78%;
+        border: 1px solid rgba(0, 0, 0, 0.345);
+        !important
+    }
+    .input__size{
+        margin-left: 20px;
+    }
+    .input__size input{
+        margin-left: 25px;
+        margin-right: 5px;
+    }
+</style>

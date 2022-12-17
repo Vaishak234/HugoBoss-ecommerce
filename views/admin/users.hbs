@@ -1,0 +1,146 @@
+
+
+{{>admin/sideNav}}
+
+
+   
+  <div class="products">
+    <div class="products__container">
+       <table>
+         <tr class="title__row mb-4">
+           <th>#</th>
+           <th>Email</th>
+           <th>Mobile</th>
+           <th>Name</th>
+           <th>Gender</th>
+           <th>Actions</th>
+         </tr>
+        
+          {{#each users}}
+             <tr>
+
+               <th scope="row" id="numTag">{{ @index }}</th>
+               <td class="title__col" id="email-{{this._id}}">{{#if this.email}} {{this.email}} {{else}} null {{/if}} </td>
+               <td class="cateogry__col">{{#if this.mobile}} {{this.mobile}} {{else}} null {{/if}} </td>
+               <td class="color__col"> {{#if this.firstName}} {{this.firstName}}.{{this.lastName}} {{else}} null {{/if}} </td>
+               <td  class="price__col">{{#if this.gender}} {{this.gender}} {{else}} null {{/if}} </td>
+               <td>
+                   <button id="banBtn-{{this._id}}" onclick="banUser('{{this._id}}')" class="btn btn-danger">Ban user</button>
+                   <button id="unbanBtn-{{this._id}}" onclick="unbanUser('{{this._id}}')" class="btn btn-primary" style="display:none ;">Unban user</button>
+               </td>
+             </tr>
+          {{/each}} 
+        </table>       
+    </div>
+  </div>
+
+
+
+<style>
+  .products{
+    padding: 20px 60px;
+   
+  }
+  .products__container{
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    
+  }
+  .title{
+    text-align: center;
+    margin-bottom: 10px;
+    color: blue;
+  }
+  table{
+    width: 100%;
+  }
+  .title__row{
+   gap: 20px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.7);
+
+  }
+  td a{
+    font-size: 25px;
+    padding: 5px;
+    text-decoration: none;
+
+  }
+  td button{
+    background-color: transparent;
+    border: none;
+     font-size: 20px;
+    color: blue;
+  }
+  
+</style>
+
+
+<script>
+  var divs = document.querySelectorAll('#numTag');
+    for (var i = 0; i < divs.length; ++i) {
+        divs[i].innerHTML = i + 1;
+    }
+
+   async function banUser(userId) {
+      var userEmail = document.getElementById('email-'+userId).innerText
+
+      await swal({
+       title: "Are you sure?",
+       text: `wants to ban the user with email ${userEmail} !!`,
+       icon: "warning",
+       buttons: true,
+       dangerMode: true,
+     })
+     .then((willDelete) => {
+       if (willDelete) {
+           fetch('/admin/ban-user/'+userId)
+           .then(res=>res.json())
+           .then(async(data)=>{
+                    if(data.banned){
+                          await swal("user has been banned", {
+                            icon: "success",
+                          });
+                          document.getElementById('banBtn-'+userId).style.display = "none"
+                          document.getElementById('unbanBtn-'+userId).style.display = "block"
+                    }
+                })
+       } else {
+         swal("Didn't banned user ");
+       }
+     });
+   
+   }
+
+   async function unbanUser(userId) {
+     var userEmail = document.getElementById('email-'+userId).innerText
+
+     await swal({
+       title: "Are you sure?",
+       text: `wants to unban the user with email ${userEmail} !!`,
+       icon: "warning",
+       buttons: true,
+       dangerMode: true,
+     })
+     .then((willDelete) => {
+       if (willDelete) {
+           fetch('/admin/unban-user/'+userId)
+           .then(res=>res.json())
+           .then(async(data)=>{
+                    if(data.unbanned){
+                          await swal("The user is unbanned !", {
+                            icon: "success",
+                          });
+                          document.getElementById('unbanBtn-'+userId).style.display = "none"
+                          document.getElementById('banBtn-'+userId).style.display = "block"
+                    }
+                })
+       } else {
+         swal("Didn't unbanned user !!! ");
+       }
+     });
+
+   }
+</script>

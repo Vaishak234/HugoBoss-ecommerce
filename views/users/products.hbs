@@ -1,0 +1,92 @@
+
+<div class="header__background">
+    {{>users/header}}
+</div>
+
+<section style="min-height: 80vh;">
+   <div class="product__container">
+      <h1 class="title">{{pTitle}} collections</h1>
+    <div class="products">
+       
+        {{#each products}}
+       <a href="/product/{{this._id}}">
+         <div class="product">
+           {{#each this.images}}
+              {{#if @first}}
+                <img src="/uploads/{{this}}" alt="" id="{{this}}" >
+              {{/if}}
+           {{/each}}
+            <p class="title">{{this.title}}</p>
+            <p class="price">Rs.{{this.price}}</p>
+            <p class="color">{{this.color}}</p>
+        </div>
+       </a>
+       {{/each}}
+    </div>
+  </div>
+
+</section>
+
+{{>users/footer}}
+
+
+<style>
+    .header__background{
+        background-color: black;
+    }
+    .product__container{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+       
+    }
+    .products{
+        display: flex;
+        gap: 10px;
+        row-gap: 10px;
+        flex-wrap: wrap;
+        padding: 30px 30px;
+        justify-content: center;
+       
+    }
+    .product__container .title{
+        text-transform: capitalize;
+        color:black;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 38px;
+        font-weight: 500;
+    }
+    .products a{
+        text-decoration: none;
+    }
+    .product{
+        width: 340px;
+    }
+    .product img{
+        width: 100%;
+    }
+    p{
+      color: rgba(0, 0, 0, 0.434);
+    }
+    .product .title{
+        margin-top: 16px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .product .title:hover {
+        text-decoration: underline;
+    }
+    .product .price{
+        margin-top: -14px;
+        font-size: 14.6px;
+        font-weight: 600;
+    }
+    .product .color{
+        font-size: 12.6px;
+        font-weight: 600; 
+        margin-top: -16.8px;
+    }
+</style>

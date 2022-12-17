@@ -1,0 +1,228 @@
+<div class="header__background" style="background-color: black;">
+    {{>users/header}}
+</div>
+
+<section>
+    <div class="checkout">
+        <div class="checkout__left">
+            <div class="section__card">
+                <h3>My Informations</h3>
+                <p>Email : <span>{{user.email}}</span></p>
+            </div>
+            <div class="address__card">
+                 <form action="/checkout"  method="post">
+                     <h3 class="address__title">Home Address</h3>
+                     <div class="rows">
+                       <div class="inp__rows"> <label for="">Firstname</label>
+                       <input type="text" name="firstname" value="" placeholder="Firstname">
+                     </div>
+                       <div class="inp__rows"> <label for="">Lastname</label> 
+                       <input type="text" name="lastname" value="" placeholder="LastName">
+                    </div>
+                     </div>
+                     <div class="rows">
+                       <div class="inp__rows largeInp">
+                         <label for="">Address</label>
+                          <input type="text" name="address" value="" placeholder="Address">
+                        </div>
+                     </div>
+                     <div class="rows">
+                       <div class="inp__rows"> 
+                          <label for="">Pincode</label>
+                          <input type="text" name="pincode" value="" placeholder="Pincode"> 
+                        </div>
+                       <div class="inp__rows"> 
+                           <label for="">City</label>
+                           <input type="text" name="city" value="" placeholder="City">
+                         </div>
+                     </div>
+                     <div class="rows">
+                       <div class="inp__rows"> 
+                          <label for="">District</label>
+                           <input type="text" name="district" placeholder="District" value =''>
+                        </div>
+                        <div class="inp__rows"> 
+                          <label for="">State</label>
+                         <select name="state" id="state" >
+                            <option hidden value="">Select...</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                <option value="Daman and Diu">Daman and Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+                     </div>
+                     <h3 class="address__title">Personal details</h3>
+                     <div class="rows">
+                       <div class="inp__rows">
+                         <label for="">Date of Birth</label>
+                         <input type="date" name="dob" value="" placeholder="Date of Birth"> 
+                        </div>
+                       <div class="inp__rows"> 
+                         <label for="">Mobile number</label>
+                         <input type="text" name="mobile" value="" placeholder="mobile"> 
+                        </div>
+                     </div>
+                     <button type="submit">Continue</button>
+                 </form>
+                  {{#if error}}
+                    <p class="text-danger">{{error}}</p>
+                  {{/if}}
+            </div>
+            <div class="section__card">
+                <h3>Payment & Discount</h3>
+                <p>choose mode of payment</p>
+            </div>
+        </div>
+
+        <div class="cart__right">
+            <div class="top">
+           <div class="first">
+             <p>Order value</p>
+             <p id="order">Rs.{{getTotal.order}}</p>
+           </div>
+           <div class="second">
+             <p>delevery</p>
+             <p id="delevery">Rs.{{getTotal.delevery}}</p>
+           </div>
+           <hr/>
+           <div class="third">
+             <p>Total</p>
+             <p id="total">Rs.{{getTotal.total}}</p>
+           </div>
+           <button>Go to Delevery</button>
+        </div>
+        <div class="bottom">
+            <p>Prices and delivery costs are not confirmed until you've reached the checkout.</p>
+            <p>30 days withdrawal and free returns. Read more about return and refund policy.</p>
+            <p>Customers would receive an SMS/WhatsApp notifications regarding deliveries on the registered phone number</p>
+        </div>
+        
+        </div>
+    </div>
+</section>
+
+{{>users/footer}}
+
+
+<style>
+  .checkout{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding-top: 50px;
+  }
+  .section__card{
+    width: 600px;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 15px 20px 30px 20px;
+  }
+  .section__card h3{
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section__card p{
+     font-size: 14.5px;
+     margin-bottom: 0;
+  }
+  .address__card{
+    width: 600px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+  }
+  .address__title{
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+
+  }
+ .rows{
+    display: flex;
+     gap: 40px;
+ }
+ .inp__rows{
+    display: flex;
+    flex-direction: column;
+    width: 47.6%;
+    margin-bottom: 15px;
+   
+ }
+ .largeInp{
+    width: 100%;
+ }
+ .inp__rows input, select{
+    border: 1px solid rgba(0, 0, 0, 0.281);
+    outline: none;
+    height: 40px;
+    padding: 6px 7px;
+ }
+ 
+ label{
+    margin-bottom: 5px;
+ }
+    .cart__right{
+        background-color: white;
+        width: 300px;
+        padding: 15px;
+        height: 470px;
+    }
+    .cart__right .top .first , .cart__right .top .second , .cart__right .top .third{
+        display: flex;
+        justify-content: space-between;
+    }
+    .cart__right .top .third{
+         margin-top: 20px;
+    }
+    .cart__right .top .third p{
+        font-size: 17px;
+        font-weight: 700;
+      
+    }
+    .cart__right .top button ,button{
+        background-color: rgba(0, 0, 0);
+        width: 100%;
+        border: none;
+        color: white;
+        padding: 8px;
+        margin-top: 35px;
+        margin-bottom: 20px;
+    }
+   .cart__right .bottom p{
+    font-size: 13px;
+    margin-top: 8px;
+   }
+</style>

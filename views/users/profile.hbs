@@ -1,0 +1,211 @@
+<div class="header__background">
+    {{>users/header loggedIn}}
+</div>
+
+<div class="profile__container">
+  
+     <div class="profile__left">
+        <div class="content">
+             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI8AAACPCAMAAAD0vXihAAAAMFBMVEXk5ueutLe/xMbo6eqqsLTf4eLX2tu1ur23vb/Jzc/R1NbM0NK6v8La3d7Cx8myt7rdSdfBAAADNElEQVR4nO2b25arIAxAhQDiBf3/vx2p9jq2JKmJc9ZhP81b9wqQYMg0TaVSqVQqlUqlUqlUKpX/AIDGZ5Y/4GyXhdTZds600fZZ6jwVgGBn58wN5+YunGUETW/2iKE5wwj61u36GDcmdSHw8Y3NxWjS1gnvZS5C0WuGCLoPwdmMgqJQWWeh1xKCCaNjnJIQdBgbtSWDHhWdzOwVfBLWZqGV14FPeefXinXSK4Y46U8kYR8/k3RMlA0Q8qjfkT5jRB1jRkkbdOp5CJDoDiLunowVXLBAXq4FuaQIlqEjWFeBo2Pk7maUUnFHrGjAwPJxYhto4vkEKZ+R5yNWVFuezyTlw8iGmVHKh6djWikfTnY2gncOps9fi4+Yz1/bz7zzLnfj4OVDI5YPmfWiF9Jh3FYvPmL1tND0ecMspcNM0FZMBzgb2g1y91V8a+MBwSYH9Ws5I/nFDPQTL3c7zHjygsm2gMg7WnA3XyB/8gg3pIgNF9ndc4HkI9lM2CAVDXEbWgdR580Ae8akz9aNiNMRb/bewFxcncJevgJj+b1Ja7FWCmnI6b02rUCYP71X6j4PXoTe3+6dGZRlVqNk90LkzKQenKuRn1rjnmXicOqEQhOGaNyGsUM6ZRbgSSnPk4QFD6cPlOTff1SA5rQhlxyVNHSTHdt5XTAzt3GcuiEk5SGX5cd86OK6f38fr+WLtJ361CjtJGj6Ke6IvGi51g5eOk7QpLdTLXtOcyd53gD6sRiY19WLnZARpMmxGojOCgwoLcWB47IRD25J5VLFbK5uMYoH3j/AfxObK+1Bl3tgtul+4ewRdX+5eB2jk/n+DntUcFa+DRF4fPZD8s2+hkRMfwi++CqD4XAb88V3GXXUBw1vxIQ8WoPGcVqccjqG01SU2Ts3qE9ivM43AeKm5k1qECC2Gw6sEe8gdDp5cz5U8DqsMSgq+DEKz3y3pYJcMbG8/ILDvsvr6GAHpI+98XwkosKjcNY3MK8b4pn5EUTZAFyz+yDKb6vileKJYtWA/f/JkaJYVnVKxZ3ieinl5o3ybIfi6TKIlJh0fYqzQZrZx5Q/fiCMVpXi1yEoU9CpVCqVSuVf4AcawSWbiHL18wAAAABJRU5ErkJggg==" alt="" class="profile__image">
+             <h5><span>Hi ,</span> {{#if user.firstName}} {{user.firstName}} {{user.lastName}} {{else}} user {{/if}}</h5>
+            
+        </div>
+          <div class="contentBox">
+                <a href="/my-orders"> <span>My orders</span> <i class="fa-solid fa-chevron-right"></i></a>
+         </div>
+        <div class="contentBox">
+            <a href="/auth/logout"> <span>Logout</span> <i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+     </div>
+
+     <div class="profile__right">
+       <h4 class="title">Personal informations</h4>
+       <div class="inpBox">
+          <input type="text" name="firstName" value="{{user.firstName}}" id="" placeholder="firstname">
+          <input type="text" name="lastName" value="{{user.lastName}}" id="" placeholder="lastname">
+       </div>
+        
+        <div class="inpBox">
+          <input type="email" style="cursor: no-drop;"  readonly  value="{{user.email}}" name="email" id="" placeholder="email">
+       </div>
+         <p class="genderLabel">Gender</p>
+         <div class="inpBox">
+       
+          <div class="radioBox">  <input type="radio" id="maleBtn"  value="male"  name="gender" > <span>male</span></div>
+          <div class="radioBox">  <input type="radio" id="femaleBtn"  value="female" name="gender" > <span>Female</span></div>
+          <div class="radioBox">  <input type="radio" id="noneBtn"  value="none" name="gender" checked > <span>None</span></div>
+          <input type="text"  id="genderInp" hidden value="{{user.gender}}">
+       </div>
+
+        <div class="inpBox">
+          <input type="number" value="{{user.mobile}}" name="mobile" id="" placeholder="Mobile">
+       </div>
+
+        <div class="inpBox">
+             <button id="addBtn"  onclick="addUserDetails()"> 
+            <div id="circularLoader" class="spinner-border text-primary ms-2" style="display: none;" role="status">
+            </div>  
+           <span id="addText">update</span>
+        </button>
+        
+       </div>
+
+
+    </div>
+</div>
+
+<style>
+    .header__background{
+        background-color: black;
+    }
+    
+    .profile__container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        margin-top: 100px;
+    }
+    .profile__left{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .content{
+        width: 400px;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        margin-bottom: 10px;
+        padding: 20px 13px;
+    }
+    .content img{
+        width: 60px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+    .content h5 span{
+        margin-right: 8px;
+        font-size: 21px;
+        font-weight: 700;
+    }
+    .content h5{
+        margin-top: 4px;
+        font-size: 18px;
+    }
+    .contentBox a , .contentBox a:hover{
+        color: black;
+        text-decoration: none;
+    }
+    .contentBox{
+        width: 400px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        margin-bottom: 10px;
+        padding: 10px 13px;
+    }
+    .contentBox a{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .profile__right{
+        width: 700px;
+        padding: 17px 22px;
+        background-color: white;
+    }
+    .profile__right .title{
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+    .profile__right .inpBox{
+        width: 100%;
+        display: flex;
+        gap:80px;
+        margin-bottom: 40px ;
+
+
+    }
+    .inpBox input  {
+        border: none;
+        outline: none;
+        border-bottom: 1px  solid  rgba(0, 0, 0, 0.742);
+        margin-top: 0;
+        width: 40%;
+    }
+    .genderLabel{
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+    .radioBox{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .inpBox button{
+        padding: 5px 20px;
+        color: white;
+        background-color: black;
+        border: none;
+        outline: none;
+    }
+
+</style>
+
+<script>
+
+     // To check radio btn
+     let genderBtn = document.querySelector('#genderInp').value
+     console.log(genderBtn)
+     if(genderBtn == 'male'){
+        document.getElementById('maleBtn').checked =true;
+     }
+     else if(genderBtn == 'female'){
+        document.getElementById('femaleBtn').checked= true
+     }else{
+        document.getElementById('noneBtn').checked= true
+
+     }
+
+
+     async  function addUserDetails() {
+
+        let gender = document.querySelector("input[type='radio'][name=gender]:checked").value
+        let firstName = document.querySelector("input[type='text'][name=firstName]").value
+        let lastName = document.querySelector("input[type='text'][name=lastName]").value
+        let mobile = document.querySelector("input[type='number'][name=mobile]").value
+        let email = document.querySelector("input[type='email'][name=email]").value
+
+        let data ={
+            gender,
+            mobile,
+            firstName,
+            lastName,
+            email
+        }
+         await fetch('/profile/update-details',{
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(res=> res.json())
+        .then(data =>{
+            if(data.updated){
+                document.getElementById('circularLoader').style.display="flex"
+                setTimeout(()=>{
+                    document.getElementById('circularLoader').style.display="none"
+
+                },2000)
+                location.reload()
+            }
+           
+        })
+    }
+    
+</script>

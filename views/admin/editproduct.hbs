@@ -1,0 +1,322 @@
+{{>admin/sideNav}}
+
+<div class="section__container">
+   
+   <div class="form__comtainer">
+   
+     <form action="/admin/editproduct/{{product._id}}" enctype="multipart/form-data" method="post">
+       <div class="title">
+         <h2>Edit Product</h2>
+       </div>
+        <div class="input__container">
+            <input type="text" name="title" value="{{product.title}}" placeholder="Title">
+            <input type="number" inputmode="numeric" name="price" value="{{product.price}}" placeholder="Price">
+        </div>
+        <div class="input__container">
+            <input type="text" name="artno" value="{{product.artno}}" placeholder="Art.no">
+            <input type="" name="color" value="{{product.color}}" placeholder="Colour">
+        </div>
+        <div class="input__container">
+            <input type="text" name="ratings" value="{{product.ratings}}" placeholder="Rating">
+            <input type="" name="fit" value="{{product.fit}}" placeholder="Fit">
+        </div>
+        <div class="input__container">
+            <input type="text" value="{{product.composition}}" name="composition" placeholder="Composition">
+              <select id="sizeInput" required name="cateogry"  >
+              <option hidden value="">select..</option>
+              <option value="mens"  >Mens</option>
+              <option value="womens" >Womens</option>
+              <option value="kids">Kids</option>
+              <option value="accessories">Accessories</option>
+            </select>
+        </div>
+        
+        <div class="input__container">
+            <input type="text" name="description" value="{{product.description}}" class="large" placeholder="Description">
+        </div>
+        <div class="input__container-images">
+            <div class="slideshow-container">
+                 {{#if product.images}}
+                {{#each product.images}}
+                  <div class="mySlides ">
+                    <img src="/uploads/{{this}}" style="width:100%">
+                  </div>
+                  {{/each}}
+                 
+                  <!-- Next and previous buttons -->
+                  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                  {{/if}}
+            </div>
+            
+        </div>
+         <div class="input__container">
+            <input type="file"   multiple name="images" class="images" placeholder="Select images">
+            <input type="number" inputmode="numeric" name="delevery" value="{{product.delevery}}" class="delevery" placeholder="Delevery">
+        </div>
+         
+           <div class="input__size">
+                <label  for="">Size : </label>
+                {{#if product.small}}
+                   <input type="checkbox"  name="small" id="small" value="true" checked > <label for="small">Small</label>
+                {{else}}
+                   <input type="checkbox"  name="small" id="small" value="false" > <label for="small">Small</label>
+                {{/if}}
+
+                {{#if product.medium}}
+                   <input type="checkbox"  name="medium" id="medium" value="true" checked> <label for="medium">Medium</label>
+                {{else}}
+                   <input type="checkbox"  name="medium" id="medium" value="false"> <label for="medium">Medium</label>
+                {{/if}}
+
+                 {{#if product.large}}
+                   <input type="checkbox"  name="large" id="large" value="true" checked >  <label for="large">Large</label>
+                {{else}}
+                   <input type="checkbox"  name="large" id="large" value="false" >  <label for="large">Large</label>
+                {{/if}}
+
+                {{#if product.xl}}
+                    <input type="checkbox"  name="xl" id="xl" value="true" checked>  <label for="xl">Xl</label>
+                {{else}}
+                    <input type="checkbox"  name="xl"  id="xl"value="false">  <label for="xl">Xl</label>
+                {{/if}}
+
+                {{#if product.xxl}}
+                    <input type="checkbox"  name="xxl" id="xxl" value="true" checked>  <label for="xxl">XXl</label>
+                {{else}}
+                    <input type="checkbox"  name="xxl" id="xxl" value="false">  <label for="xxl">XXl</label>
+                {{/if}}
+
+                {{#if product.xxxl}}
+                    <input type="checkbox"  name="xxxl" id="xxxl" value="true" checked>  <label for="xxxl">XXXl</label>
+                {{else}}
+                    <input type="checkbox"  name="xxxl" id="xxxl" value="false">  <label for="xxxl">XXXl</label>
+                {{/if}}
+
+            </div>
+
+            <div class="outDelevery__container">
+                <h4>Out of delevery</h4>
+               {{#if product.outOfDelevery}}
+                  <input type="checkbox" name="outOfDelevery" checked id="" >
+                 {{else}}
+                   <input type="checkbox" name="outOfDelevery" id="" >
+                {{/if}}
+            </div>
+        <button type="submit" class="inp-btn">Edit Product</button>
+     </form>
+   </div>
+</div> 
+
+
+
+
+<script>
+
+    function viewImage(event){
+       console.log(event)
+       document.getElementById('imgView').
+    }
+</script>
+
+<style>
+    .section__container{
+        display: flex;
+        justify-content: center;
+        padding: 40px;
+    }
+    .form__container{
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        max-width: 1200px;
+        background-color: white;
+        padding: 30px 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    .input__container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        column-gap: 30px;
+        flex: 1;
+    }
+    .input__container-images{
+        width: 100%;
+        display: flex;
+        column-gap: 30px;
+        margin-left: 20px;
+        flex: 1;
+        padding-top: 30px;
+       
+    }
+    .input__container-images img{
+        margin-right: 20px;
+    }
+    .input__container input ,.input__container select{
+        width: 500px;
+        padding: 10px 15px 10px 10px;
+        outline: none;
+        margin: 20px;
+    }
+    .input__container .large{
+        width: 1080px;
+        padding-bottom: 65px;
+        overflow-wrap: break-word;
+        overflow-x: scroll;
+    }
+    .inp-btn{
+        width: 200px;
+        color: white;
+        outline: none;
+        border: none;
+        padding: 12px 20px;
+        background-color: rgba(0, 0, 0, 0.738);
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+    .inp-btn:hover{
+        background-color: rgba(0, 0, 0, 0.444);
+    }
+    .title{
+        margin-left: 20px;
+
+    }
+    .title h2{
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.563);
+    }
+    .delevery{
+        max-width: 22%;
+    }
+    .input__container .images{
+        width: 78%;
+        border: 1px solid rgba(0, 0, 0, 0.345);
+        !important
+    }
+    .input__size{
+          margin-left: 20px;
+    }
+    .input__size input{
+        margin-left: 25px;
+        margin-right: 5px;
+    }
+    
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  transition: .5 all ease;
+  margin-left: 60px;
+}
+
+img{
+    height: 400px;
+    object-fit: contain;
+}
+.mySlide{
+    display: flex;
+    align-items: center;
+     transition: .5 all ease;
+
+}
+
+/* Hide the images by default */
+
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: black;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: -50px;
+  border-radius: 3px 0 0 3px;
+}
+.prev{
+    left: -50px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.outDelevery__container{
+    display: flex;
+    max-width: 200px;
+    margin: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+.outDelevery__container input{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+</style>
+
+
+<script>
+
+    let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+</script>

@@ -1,0 +1,270 @@
+<div class="header__background">
+    {{>users/header }}
+</div>
+
+<section class="cart__section">
+
+ <h1 class="cart__title">Shopping Bag</h1>
+  <div class="cart">
+  
+    <div class="cart__leftContainer">
+        {{#if cart}}
+          {{#each cart}}
+    <div class="cart__left" id="{{this.cartProducts._id}}{{this.size}}">
+        {{#each this.cartProducts.images}}
+              {{#if @first}}
+                <img src="/uploads/{{this}}" alt="">
+              {{/if}}
+           {{/each}}
+        <div class="content">
+            <div class="top">
+                <div class="left">
+                    <p class="title">{{this.cartProducts.title}}</p>
+                    <p class="price">Rs.{{this.cartProducts.price}}</p>
+                </div>
+                <div class="right">
+                    <i class="fa-solid fa-trash" style="color: black;" onclick="deleteProduct('{{this.cartProducts._id}}','{{this.size}}')"></i>
+                </div>
+            </div>
+            <div class="middle">
+                <div class="first">
+                    <div class="left">
+                        <p class="artno">Art.no :</p>
+                        <p class="color">color :</p>
+                    </div>
+                    <div class="right">
+                        <p class="artno">{{this.cartProducts.artno}}</p>
+                        <p class="color">{{this.cartProducts.color}}</p>
+                    </div>
+                </div>
+                <div class="second">
+                    <div class="left">
+                        <p class="size">Size    :</p>
+                        <p class="total">Fit :</p>
+                    </div>
+                    <div class="right">
+                        <p class="size">{{this.size}}</p>
+                        <p class="total">{{this.cartProducts.fit}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <button  onclick="changeQuantity('{{this._id}}','{{this.cartProducts._id}}','{{this.size}}',-1)">-</button>
+                <h4 style="color: black;" id="{{this.size}}{{this.cartProducts._id}}">{{this.quantity}}</h4>
+                <button onclick="changeQuantity('{{this._id}}','{{this.cartProducts._id}}','{{this.size}}',1)">+</button>
+            </div>
+        </div>
+    </div>
+     {{/each}}
+    
+    </div>
+   
+    <div class="cart__right" id="cartRight">
+        <div class="top">
+           <div class="first">
+             <p>Order value</p>
+             <p id="order">Rs.{{getTotal.order}}</p>
+           </div>
+           <div class="second">
+             <p>delevery</p>
+             <p id="delevery">Rs.{{getTotal.delevery}}</p>
+           </div>
+           <hr/>
+           <div class="third">
+             <p>Total</p>
+             <p id="total">Rs.{{getTotal.total}}</p>
+           </div>
+           <a href="/checkout"><button>Go to checkout</button></a>
+        </div>
+        <div class="bottom">
+            <p>Prices and delivery costs are not confirmed until you've reached the checkout.</p>
+            <p>30 days withdrawal and free returns. Read more about return and refund policy.</p>
+            <p>Customers would receive an SMS/WhatsApp notifications regarding deliveries on the registered phone number</p>
+        </div>
+        
+    </div>
+     {{else}}
+     <h1>No products in the cart</h1>
+     {{/if}}
+</div>
+</section>
+
+{{>users/footer}}
+
+<style>
+     .header__background{
+        background-color: black;
+    }
+    .cart__section{
+        width: 100%;
+        min-height: 100vh;
+        background-color:  rgb(250, 249, 248);
+        padding: 50px 40px;
+    }
+    .cart{
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+    .cart__title{
+        text-align: center;
+        margin-bottom: 25px;
+        color: black;
+        font-weight: 500;
+    }
+    .cart__left{
+        display: flex;
+        width: 800px;
+        background-color: white;
+        padding: 10px;
+        height: 210px;
+        margin: 10px 0;
+
+    }
+    .cart__leftContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .cart__left img{
+        height: 190px;
+    }
+    .cart__left .content{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 16px;
+    }
+    .cart__left .content .top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .cart__left .content .middle {
+        display: flex;
+         gap: 50px;
+         margin-bottom: 30px;
+    }
+    .cart__left .content .middle .first{
+        display: flex;
+         gap: 10px;
+    }
+    .cart__left .content .middle .second{
+        display: flex;
+         gap: 10px;
+        
+    }
+    .cart__left .content .bottom {
+        display: flex;
+        gap: 20px;
+    }
+    p{
+        margin: 0;
+        color: rgba(0, 0, 0, 0.908);
+    }
+    .title{
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .price{
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .artno ,.size ,.total,.color{
+        font-size: 13px;
+        font-weight: 500;
+    }
+    .cart__left .bottom button{
+        background-color: rgba(0, 0, 0);
+        border: none;
+        color: white;
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+    }
+    .cart__right{
+        background-color: white;
+        width: 300px;
+        padding: 15px;
+        height: 440px;
+    }
+    .cart__right .top .first , .cart__right .top .second , .cart__right .top .third{
+        display: flex;
+        justify-content: space-between;
+    }
+    .cart__right .top .third{
+         margin-top: 20px;
+    }
+    .cart__right .top .third p{
+        font-size: 17px;
+        font-weight: 700;
+      
+    }
+    .cart__right .top button{
+        background-color: rgba(0, 0, 0);
+        width: 100%;
+        border: none;
+        color: white;
+        padding: 8px;
+        margin-top: 35px;
+        margin-bottom: 20px;
+    }
+   .cart__right .bottom p{
+    font-size: 13px;
+    margin-top: 8px;
+   }
+</style>
+
+<script>
+
+      function deleteProduct(id,size){
+         let deleteProduct = document.getElementById(id+size)
+         fetch('/cart/delete-product/'+id+'/'+size)
+                .then(res=>res.json())
+                .then(data=>{
+                    console.log(data.status)
+                    if(data.status){
+                        location.reload(
+
+                        )
+                    }
+                })
+        }
+
+       async function changeQuantity(cartId ,productId , size ,count) {
+        let quantity = document.getElementById(size+productId).innerHTML
+        let data = {
+            cartId,
+            productId,
+            count,
+            size,
+            quantity
+        }
+        count = parseInt(count)
+        quantity = parseInt(quantity)
+        let changeQuantity = document.getElementById(size+productId)
+        let total = document.getElementById('total')
+        let order = document.getElementById('order')
+        let delevery = document.getElementById('delevery')
+        await fetch('/cart/change-quantity',{
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(res=> res.json())
+        .then(data =>{
+           console.log(data)
+           if(data.status){
+               changeQuantity.innerHTML = quantity+count
+               total.innerHTML = 'Rs.'+data.getTotal[0].total
+               order.innerHTML = 'Rs.'+data.getTotal[0].order
+               delevery.innerHTML = 'Rs.'+data.getTotal[0].delevery
+            }
+            if(data.removeproduct){
+                location.reload()
+            }
+        })
+    }
+</script>

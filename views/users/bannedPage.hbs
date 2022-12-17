@@ -1,0 +1,32 @@
+
+<div class="header__background">
+    {{>users/header }}
+</div>
+
+<div class="banned__container">
+   <div class="banned">
+      <h3>your account is banned </h3>
+   </div>
+</div>
+
+{{>users/footer}}
+
+<style>
+    .header__background{
+        background-color: black;
+    }
+    .banned__container{
+        width: 100%;
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .banned{
+       width: 400px;
+       height: 230px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+    }
+</style>

@@ -1,0 +1,257 @@
+ 
+<header>
+     <div class="header__top">
+        <p class="topTitle"></p>
+    </div>
+  <div class="header__container">
+   
+        <a href="/" style="text-decoration: none;"><h1>HUGO BOSS</h1></a>
+   
+
+  
+        <ul class="middle">
+            <li><a href="/items/mens">Mens</a></li>
+            <li><a href="/items/womens">Womens</a></li>
+            <li><a href="/items/kids">Kids</a></li>
+            <li><a href="/items/accessories">Accessories</a></li>
+           
+        </ul>
+ 
+   
+        <ul>
+            <li class="search_li">
+          
+                <input type="search" id="searchInp" oninput="searchProduct()" class="searchInp" placeholder="search">
+                <i class="fa-solid fa-magnifying-glass"> </i>
+              
+            </li>
+            
+            <li>
+               <div class="dropdown">
+              <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+             
+               <div class="dropdown-content " >
+                 <a href="/profile">Profile</a>
+               </div>
+              
+              </div>
+            </li>
+
+            <li><a href="/cart"><i class="fa-sharp fa-solid fa-bag-shopping"></i></a></li>
+        </ul>
+  
+  </div>
+
+ 
+
+</header>
+
+  <div class="displayProducts" >
+    
+     
+  </div>
+    
+
+<style>
+
+  .displayProducts{
+    width: 400px;
+    margin-top: 10px;
+    position: absolute;
+    right: 20px;
+    background-color: black;
+    min-height: 0;
+    max-height: 74.5vh;
+    display: none;
+    overflow-y: hidden;
+    padding: 16px 0;
+    z-index: 9999;
+    padding-bottom: 20px;
+  }
+  .displayProducts a:hover{
+    text-decoration: none;
+  }
+  .displayProducts .products{
+    display: flex;
+    padding: 0;
+    align-items: center;
+    color: white;
+    min-height: 80px;
+    overflow-y: hidden;
+    gap: 40px;
+    justify-content: start;
+    padding-left: 30px;
+
+  }
+  .displayProducts .products .title{
+        color: white;
+        width: 280px;
+  }
+  .displayProducts .products img{
+    width: 30px;
+  }
+  .searchInp{
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    background-color: transparent;
+    color: white;
+    margin-right: -20px;
+    
+   }
+  
+   .searchInp::placeholder{
+    color: white;
+   }
+   .middle{
+     text-align: center;
+     margin-left: 190px;
+   }
+    .header__top{
+        width: 100%;
+        height: 40px;
+        background-color: black;
+        text-align: center;
+        padding-top: 8px;
+        color: white;
+    }
+    .header__top p{
+        font-size: 16px;
+        text-decoration: underline;
+        font-weight: 600;
+        color: white;
+        vertical-align: middle;
+
+
+    }
+    .header__container{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+       height: 70px;
+       padding: 12px 50px;
+       padding-bottom: 20px;
+       padding-top: 26px;
+       transition: all .3s ease-in;
+    }
+    .header__container:hover {
+        background-color: black;
+
+    }
+    .header__container  h1{
+        font-weight: 700;
+        font-size: 28px;
+    }
+    ul{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 45px;
+        padding-top: 13px;
+        color: white;
+    }
+   
+    li{
+        list-style: none;
+    }
+    a{
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+        font-size: 18px;
+        font-weight: 700;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+    .dropbtn {
+      color: white;
+      padding: 16px;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 100px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: rgba(0, 0, 0, 0.749);
+      padding: 12px 16px;
+      text-decoration: none;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+    }
+    
+    .dropdown-content a:hover {background-color: #f1f1f1}
+    
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+   
+    
+    
+    .topTitle::before {
+            content: "Free Shipping to India on orders above ₹8000";
+            animation: animate infinite 16s;
+            padding-left: 10px;
+        }
+  
+        @keyframes animate {
+  
+            33% {
+                content: "Extended Returns";
+            }
+  
+            66% {
+                content: "Black Friday Event: Men | Women";
+            }
+  
+         
+        }
+</style>
+
+<script>
+
+  function searchProduct() {
+      let searchInp = document.querySelector('#searchInp').value
+      let displayProducts = document.querySelector('.displayProducts')
+   
+      if(searchInp != '') {
+         fetch('/search-product/'+searchInp)
+        .then(res=>res.json())
+        .then(data=>{
+          console.log(data)
+          if(data.status && data.products.length != 0){
+              console.log('hi')
+              displayProducts.style.display = 'block'
+               data.products.forEach((product) => {
+
+                   const movies = '<a href = "/product/'+product._id+'" ><div class="products"><img src="/uploads/' + product.images[0] + '" alt=""><p class="title">' + product.title + '</p></div> </a>';
+                   displayProducts.insertAdjacentHTML("beforeend", movies);
+                   console.log(movies)
+                 });
+                
+             }else{
+                displayProducts.style.display = 'none'
+             }
+        })
+      }else{
+        displayProducts.style.display = 'none'
+      }
+  }
+</script>

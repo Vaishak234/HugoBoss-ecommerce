@@ -1,0 +1,93 @@
+
+
+{{>admin/sideNav}}
+
+
+   
+  <div class="products">
+    <div class="products__container">
+       <table>
+         <tr class="title__row">
+           <th>Date</th>
+           <th>user</th>
+           <th>product</th>
+           <th>size</th>
+           <th class="text-center">Quantity</th>
+           <th>Status</th>
+           <th>Total</th>
+         </tr>
+          {{#each orders}}
+        
+           <tr >
+
+               <th scope="row" id="numTag">{{this.date}}</th>
+               <td class="title__col">{{this.user}} </td>
+               <td class="title__col" style="max-width:180px;">{{this.title}} </td>
+               <td class="title__col">{{this.size}} </td>
+               <td class="title__col text-center" >{{this.quantity}} </td>
+               <td class="status__col">{{this.status}} </td>
+               <td class="title__col">Rs.{{this.totalAmount}} </td>
+               <td>
+                    <a  class="text-primary" href="/admin/order-details/{{this._id}}/{{this.productId}}/{{this.size}}"> view</a>
+               </td>
+           
+             </tr>
+             
+          {{/each}} 
+        </table>       
+    </div>
+  </div>
+
+
+<style>
+  .products{
+    padding: 30px;
+   
+  }
+  .products__container{
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    
+  }
+  table{
+    width: 100%;
+  }
+  .title__row{
+   gap: 20px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.7);
+
+  }
+  td a{
+    font-size: 25px;
+    padding: 5px;
+    text-decoration: none;
+
+  }
+  td a:hover {
+    text-decoration: underline;
+  }
+  td button{
+    background-color: transparent;
+    border: none;
+     font-size: 20px;
+    color: blue;
+  }
+  
+</style>
+
+<script>
+
+   var divs = document.querySelectorAll('#numTag');
+    for (var i = 0; i < divs.length; ++i) {
+          const event = new Date(divs[i].innerHTML);
+          console.log(event.toLocaleDateString('en-US'));
+          divs[i].innerHTML = event.toLocaleDateString('en-US');
+    } 
+
+
+   
+
+</script>

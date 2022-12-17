@@ -1,0 +1,208 @@
+<div class="header__background">
+    {{>users/header}}
+</div>
+
+<div class="orders__container">
+      <h2 class="title">Your Orders</h2>
+   {{#if products}} 
+    {{#each products}}
+   
+    <div class="orders">
+        
+        {{#each this.images}}
+              {{#if @first}}
+                <img src="/uploads/{{this}}" alt="" id="{{this}}" onmouseover="changeImage('{{this}}')">
+              {{/if}}
+        {{/each}}
+        <div class="details">
+             <p class="title">{{this.title}}</p>
+             <p>Rs.{{this.price}}</p>
+             <p class="color">{{this.size}}</p>
+        </div>
+        
+        <div class="details">
+            <p class="price"> <span>Amount :</span>{{this.orderAmount}}</p>
+            <p class="delevery"> delevery :{{this.delevery}}</p>
+            <p class="price"> <span>Total :</span>{{this.totalAmount }} </p>
+        </div>
+        <div class="details d-flex align-items-center">
+            {{#if this.delevered}} 
+              <h2 class="text-primary">Delevered</h2>
+             {{else}}
+              {{#if this.cancelled}} 
+                <h2 style="color:red;">Cancelled</h2>
+              {{else}}
+               <button class="cancelBtn" onclick="cancelOrder('{{this._id}}','{{this.productId}}','{{this.size}}')">cancle order</button>
+               {{/if}}
+            {{/if}}
+        </div>
+        
+    </div>
+
+    {{#if this.delevered}} 
+     {{#if this.review}}
+        
+        {{else}}
+        <div class="review"  id="{{this._id}}" >
+            <button class="iconBtn"><i class="fa-solid fa-xmark " onclick="closeReviewCard('{{this._id}}')"></i></button>
+            <form action="/post-review/{{this._id}}/{{this.productId}}/{{this.size}}" method="post">
+               <input type="text" name="review" placeholder="Write your review about this product....">
+               <button type="submit">submit</button>
+            </form>
+        </div>
+       {{/if}}
+    {{/if}}
+   
+    {{/each}}
+
+    {{else}}
+
+    <h2 class="mt-4">You have no Orders yet</h2>
+    {{/if}}
+</div>
+
+
+<style>
+    .header__background{
+        background-color: black;
+    }
+    .title{
+        text-align: center;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 22px;
+    }
+    .orders__container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 100px;
+        padding-top: 30px;
+    }
+    .orders{
+        margin-top: 30px;
+        display: flex;
+        width: 80%;
+        max-width: 1000px;
+        justify-content: space-between;
+        background-color: white;
+        padding: 15px 20px;
+        color: rgba(0, 0, 0, 0.604);
+    }
+    .orders img{
+        width: 100px;
+    }
+    .details .title{
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0;
+        margin-bottom: 15px;
+    }
+    .details .price{
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+     .details .color{
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+    .cancelBtn{
+        background-color: rgba(0, 0, 0, 0.703);
+        color: white;
+        padding: 7px 20px;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .cancelBtn:hover{
+        background-color: rgba(0, 0, 0, 0.542);
+        
+    }
+    .review{
+        background-color: white;
+        width: 80%;
+        max-width: 1000px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding: 40px;
+        position: relative;
+    }
+    .review .iconBtn{
+        position: absolute;
+        right: 25px;
+        top: 20px;
+        font-size: 26px;
+        color: rgba(0, 0, 0, 0.625);
+    }
+    .iconBtn{
+        border: none;
+        background-color: transparent;
+        outline: none;
+    }
+    .review form{
+        display: flex;
+        padding-top: 50px;
+       
+    }
+    .review form input{
+        border:none;
+        border-bottom: 1px solid black;
+        flex: 1;
+        margin-right: 30px;
+        outline: none;
+    }
+    .review form button{
+        padding: 5px 12px;
+        background-color: rgba(0, 0, 0, 0.807);
+        color: white;
+        margin-right: 10px;
+    }
+</style>
+
+
+<script>
+   
+   async function closeReviewCard(id){
+      console.log(id)
+      let btn = document.getElementById(id)
+      btn.style.display = 'none'
+   }
+
+   async function cancelOrder(orderId,productId,size){
+
+       
+    await swal({
+       title: "Are you sure?",
+       text: "wants to cancel  the order !!",
+       icon: "warning",
+       buttons: true,
+       dangerMode: true,
+     })
+     .then((willDelete) => {
+       if (willDelete) {
+         fetch('/cancel-order/'+orderId+'/'+productId+'/'+size)
+                .then(res=>res.json())
+                .then(async (data)=>{
+                    console.log(data.status)
+                    if(data.status){
+                          await swal("Your order has been cancelled", {
+                            icon: "success",
+                          });
+                          await location.reload()
+                    }
+                })
+       } else {
+         swal("Didn't cancel your order ");
+       }
+     });
+   
+                    
+
+     }
+</script>
+
