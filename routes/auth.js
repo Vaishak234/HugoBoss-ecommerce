@@ -46,7 +46,6 @@ router.post('/register',
     }
     })
    }
-  
     
 });
 

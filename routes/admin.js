@@ -39,8 +39,8 @@ router.get('/addProduct',isAdminAuth, function (req, res) {
 router.post('/addProduct',upload.array('images',8), (req, res) => {
   req.body.date = new Date()  // adding date field to reb.body object
   req.body.delevery = parseInt(req.body.delevery) //convert delevery field to intiger datatype
-  req.body.price= parseInt(req.body.price)  //convert price field to intiger datatype
-
+  req.body.price = parseInt(req.body.price)  //convert price field to intiger datatype
+  
   let images = []                 //images is an empty array initially and push each images from req.files to the array
   req.files.forEach((item) => {
     images.push(item.filename)
