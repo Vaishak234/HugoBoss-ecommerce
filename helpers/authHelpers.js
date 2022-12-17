@@ -19,7 +19,9 @@ module.exports = {
                         resolve(response)
                         console.log(response);
                     }
-                })
+                }).catch(error => {
+                throw error
+            })
             }
         })
     },
@@ -27,19 +29,24 @@ module.exports = {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.USERS_COLLECTION).findOne({ email: email }).then((user) => {
             resolve(user)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
     },
     getMobile: (mobile) => {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.USERS_COLLECTION).findOne({ mobile:mobile }).then((user) => {
             resolve(user)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
     },
      generateOtp: (mobile) => {
       return new Promise(async (resolve, reject) => {
-         let mobileExist = await db.get().collection(collections.USERS_COLLECTION).findOne({ mobile: mobile, authType: 'local' })
+         try {
+             let mobileExist = await db.get().collection(collections.USERS_COLLECTION).findOne({ mobile: mobile, authType: 'local' })
          if (mobileExist) {
             let otp = otpGenerator.generate(6, { upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false });
             let hashedOtp = await bcrypt.hash(otp, 10)
@@ -67,12 +74,17 @@ module.exports = {
          } else {
             resolve({ status: false, message: 'user not exist with this mobile number' })
          }
+         } catch (error) {
+            throw error
+         }
+         
          
       })
    },
    validateOtp: (otp, mobile) => {
       return new Promise(async (resolve, reject) => {
-         let otpExist = await db.get().collection(collections.OTP_COLLECTION).findOne({ mobile: mobile })
+         try {
+             let otpExist = await db.get().collection(collections.OTP_COLLECTION).findOne({ mobile: mobile })
          if (otpExist) {
             db.get().collection(collections.OTP_COLLECTION).findOne({ mobile: mobile }).then((data) => {
                bcrypt.compare(otp, data.otp).then(response => {
@@ -82,6 +94,10 @@ module.exports = {
          } else {
             resolve({ otpStatus: false })
          }
+         } catch (error) {
+            throw error
+         }
+         
       })
    },
    changePassword: (mobile, password) => {
@@ -93,14 +109,18 @@ module.exports = {
             }
          ).then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    deleteOtp: (mobile) => {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.OTP_COLLECTION).deleteOne({ mobile: mobile }).then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
 

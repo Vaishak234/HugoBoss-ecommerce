@@ -6,26 +6,40 @@ const bcrypt = require('bcryptjs')
 module.exports = {
     getAllUsers: () => {
         return new Promise(async(resolve, reject) => {
-            let users = await db.get().collection(collections.USERS_COLLECTION).find().toArray()
-            resolve(users)
+            try {
+                let users = await db.get().collection(collections.USERS_COLLECTION).find().toArray()
+                resolve(users)
+            } catch (error) {
+                throw error
+            }
         })
     },
     getAllProducts: () => {
         return new Promise(async(resolve, reject) => {
-            let products = await db.get().collection(collections.PRODUCTS_COLLECTION).find().toArray()
-            resolve(products)
+            try {
+                let products = await db.get().collection(collections.PRODUCTS_COLLECTION).find().toArray()
+                 resolve(products)
+            } catch (error) {
+                throw error
+            }
         })
     },
     getProduct: (productId) => {
          return new Promise(async(resolve, reject) => {
-             let product = await db.get().collection(collections.PRODUCTS_COLLECTION).findOne({ _id: ObjectId(productId) })
-            resolve(product)
+            try {
+                 let product = await db.get().collection(collections.PRODUCTS_COLLECTION).findOne({ _id: ObjectId(productId) })
+                 resolve(product)
+            } catch (error) {
+                throw error
+            }
         })
     },
     addProduct: (productDetails) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collections.PRODUCTS_COLLECTION).insertOne(productDetails).then((response) => {
                 resolve(response)
+            }).catch(error => {
+                throw error
             })
         })
     },
@@ -33,6 +47,8 @@ module.exports = {
          return new Promise((resolve, reject) => {
             db.get().collection(collections.PRODUCTS_COLLECTION).deleteOne({_id:ObjectId(productId)}).then((response) => {
                 resolve(response)
+            }).catch(error => {
+                throw error
             })
         })
     },
@@ -64,6 +80,8 @@ module.exports = {
                 }
             }).then((response) => {
                 resolve(response)
+            }).catch(error => {
+                throw error
             })
         })
     },
@@ -93,12 +111,16 @@ module.exports = {
                 }
             }).then((response) => {
                 resolve(response)
+            }).catch(error => {
+                throw error
             })
         })
     },
     getOrders: () => {
         return new Promise(async (resolve, reject) => {
-         let orderProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+         
+            try {
+                let orderProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
             {
                $unwind: '$products'
             },
@@ -157,14 +179,19 @@ module.exports = {
              },
             
            
-         ]).toArray()
-         
-         resolve(orderProducts);
+                ]).toArray()
+                 
+              resolve(orderProducts);
+            } catch (error) {
+                throw error
+            }
+        
       })
     },
     getLimitOrders: () => {
         return new Promise(async (resolve, reject) => {
-         let orderProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+         try {
+              let orderProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
             {
                $unwind: '$products'
             },
@@ -227,15 +254,20 @@ module.exports = {
             }
             
            
-         ]).toArray()
+              ]).toArray()
+              resolve(orderProducts);
+         } catch (error) {
+            throw error
+         }
          
-         resolve(orderProducts);
+        
       })
     },
     getOrderDetails: (orderId,productId,size) => {
         
         return new Promise(async (resolve, reject) => {
-          let orderProduct = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+         try {
+              let orderProduct = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
             {
              $match:{_id:ObjectId(orderId)}
               },
@@ -323,6 +355,10 @@ module.exports = {
          ]).toArray()
          
          resolve(orderProduct[0]);
+         } catch (error) {
+            throw error
+         }
+         
       })
     },
     placeDelevery: (orderId, productId, size) => {
@@ -338,12 +374,15 @@ module.exports = {
              }
             ).then(response => {
                 resolve(response)
+            }).catch(error => {
+                throw error
             })
         })
     },
     getNumber: () => {
         return new Promise(async(resolve, reject) => {
-            let users = await db.get().collection(collections.USERS_COLLECTION).count()
+            try {
+             let users = await db.get().collection(collections.USERS_COLLECTION).count()
             let products = await db.get().collection(collections.PRODUCTS_COLLECTION).count()
             let orders = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
                 {
@@ -368,11 +407,16 @@ module.exports = {
                 }
              ]).toArray()
             resolve({users,products,orders,delevery})
+         } catch (error) {
+            throw error
+         }
+         
         })
     },
     getTopSellingProduct:()=>{
        return new Promise(async (resolve, reject) => {
-           let topProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+          try {
+              let topProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
                {
                    $unwind:"$products"
                },
@@ -408,6 +452,10 @@ module.exports = {
            ]).toArray()
            console.log(topProducts);
            resolve(topProducts)
+         } catch (error) {
+            throw error
+         }
+         
        })
     },
     banUser: (userId) => {
@@ -420,6 +468,8 @@ module.exports = {
                 }
             ).then(response => {
                 resolve(response)
+            }).catch(error => {
+                throw error
             })
         })
     },
@@ -433,6 +483,8 @@ module.exports = {
                 }
             ).then(response => {
                 resolve(response)
+            }).catch(error => {
+                throw error
             })
         })
     }

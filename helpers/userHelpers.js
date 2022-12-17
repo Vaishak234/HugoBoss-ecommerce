@@ -15,14 +15,18 @@ module.exports = {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.PRODUCTS_COLLECTION).find({ cateogry: cateogry }).toArray().then((data) => {
             resolve(data)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    getAllProducts: () => {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.PRODUCTS_COLLECTION).find().toArray().then((data) => {
             resolve(data)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    getProduct: (id) => {
@@ -30,7 +34,9 @@ module.exports = {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.PRODUCTS_COLLECTION).findOne({ _id: ObjectId(id) }).then((data) => {
             resolve(data)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    addToCart: (productId, userId, size) => {
@@ -56,6 +62,8 @@ module.exports = {
                }).then((response) => {
                   console.log(response);
                   resolve('quantity updated')
+               }).catch(error => {
+                throw error
                })
             } else {
                db.get().collection(collections.CART_COLLECTION).updateOne({ user: userId }, {
@@ -63,7 +71,9 @@ module.exports = {
                }).then((response) => {
                   console.log(response);
                   resolve('product updated')
-               })
+               }).catch(error => {
+                throw error
+            })
             }
                
          } else {
@@ -74,13 +84,16 @@ module.exports = {
             db.get().collection(collections.CART_COLLECTION).insertOne(cartObj).then((response) => {
                console.log(response);
                resolve('product added')
+            }).catch(error => {
+                throw error
             })
          }
       })
    },
    getCart: (userId) => {
       return new Promise(async (resolve, reject) => {
-         let cart = await db.get().collection(collections.CART_COLLECTION).aggregate([
+         try {
+             let cart = await db.get().collection(collections.CART_COLLECTION).aggregate([
             {
                $match: { user: userId }
             },
@@ -108,6 +121,10 @@ module.exports = {
             
          ]).toArray()
          resolve(cart);
+         } catch (error) {
+            throw error
+         }
+         
       })
    },
    deleteProductCart: (userId, productId, size) => {
@@ -117,7 +134,9 @@ module.exports = {
          }).then((response) => {
             console.log(response);
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    changeQuantity: (details) => {
@@ -130,12 +149,16 @@ module.exports = {
                $pull: { products: { item: ObjectId(details.productId), size: details.size } }
             }).then((response) => {
                resolve({ removeproduct: true })
+            }).catch(error => {
+                throw error
             })
          } else {
             db.get().collection(collections.CART_COLLECTION).updateOne({ _id: ObjectId(details.cartId), 'products.item': ObjectId(details.productId), 'products.size': details.size }, {
                $inc: { 'products.$.quantity': count }
             }).then((response) => {
                resolve({ status: true })
+            }).catch(error => {
+                throw error
             })
        
          }
@@ -146,7 +169,8 @@ module.exports = {
    getTotal: (userId) => {
    
       return new Promise(async (resolve, reject) => {
-         let cart = await db.get().collection(collections.CART_COLLECTION).aggregate([
+        try {
+          let cart = await db.get().collection(collections.CART_COLLECTION).aggregate([
             {
                $match: { user: userId }
             },
@@ -196,6 +220,9 @@ module.exports = {
             
          ]).toArray()
          resolve(cart);
+        } catch (error) {
+          throw error
+        }
       })
    },
    addDetails: (details) => {
@@ -203,21 +230,27 @@ module.exports = {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.DETAILS_COLLECTION).insertOne(details).then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    getDetails: (userId) => {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.DETAILS_COLLECTION).findOne({ user: userId }).then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    getUserDetails: (userId) => {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.DETAILS_COLLECTION).findOne({ user: ObjectId(userId) }).then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    editDetails: (details) => {
@@ -237,7 +270,9 @@ module.exports = {
             }
          }).then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    placeOrder: (orderDetails, { products} , userDetails) => {
@@ -275,16 +310,25 @@ module.exports = {
                if (res) {
                   resolve(response)
                }
+            }).catch(error => {
+                throw error
             })
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
   
    getCartProductList: (userId) => {
       return new Promise(async (resolve, reject) => {
-         let cart = await db.get().collection(collections.CART_COLLECTION).findOne({ user: ObjectId(userId) })
+        try {
+              let cart = await db.get().collection(collections.CART_COLLECTION).findOne({ user: ObjectId(userId) })
        
-         resolve(cart)
+              resolve(cart)
+         } catch (error) {
+            throw error
+         }
+         
       })
    },
    getOrders: (userId) => {
@@ -292,13 +336,16 @@ module.exports = {
          db.get().collection(collections.ORDER_COLLECTION).find({ user: ObjectId(userId) }).toArray().then((response) => {
            
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    getOrderProducts: (userId) => {
       
       return new Promise(async (resolve, reject) => {
-         let orderProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+         try {
+             let orderProducts = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
             {
                $match: { user: userId }
             },
@@ -356,6 +403,10 @@ module.exports = {
          ]).toArray()
          
          resolve(orderProducts);
+         } catch (error) {
+            throw error
+         }
+         
       })
    },
   
@@ -370,12 +421,13 @@ module.exports = {
             }
          }).then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    cancelOrder: (userId, orderId, productId, size) => {
-      console.log(productId);
-      console.log(size);
+      
       
       return new Promise((resolve, reject) => {
          db.get().collection(collections.ORDER_COLLECTION).updateOne(
@@ -388,7 +440,9 @@ module.exports = {
             }
          ).then(response => (
             resolve(response)
-         ))
+         )).catch(error => {
+                throw error
+            })
       })
    },
    postReview: (userId, orderId, productId, size, review) => {
@@ -414,7 +468,9 @@ module.exports = {
                  resolve(savereview) 
             }
          
-         })
+         }).catch(error => {
+                throw error
+            })
       })
    },
    getProductReview: (productId) => {
@@ -444,14 +500,18 @@ module.exports = {
          ]).toArray()
             .then((response) => {
             resolve(response)
-         })
+         }).catch(error => {
+                throw error
+            })
        })
    },
    searchProducts: (key) => {
       return new Promise((resolve, reject)=> {
          db.get().collection(collections.PRODUCTS_COLLECTION).find({ title:{$regex : ".*"+key+".*"}}).toArray().then(response => {
            resolve(response)
-        })
+        }).catch(error => {
+                throw error
+            })
       })
    },
    // confirmPayment: (orderId,userId) => {
@@ -474,8 +534,13 @@ module.exports = {
    // },
    getBannedUser: (userId) => {
        return new Promise(async(resolve, reject) => {
-          let bannedUser = await db.get().collection(collections.USERS_COLLECTION).findOne({ banned: true ,_id:ObjectId(userId)})
+           try {
+            let bannedUser = await db.get().collection(collections.USERS_COLLECTION).findOne({ banned: true ,_id:ObjectId(userId)})
           resolve(bannedUser)
+         } catch (error) {
+            throw error
+         }
+         
        })
     }
 }
