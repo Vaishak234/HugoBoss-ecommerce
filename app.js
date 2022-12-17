@@ -8,7 +8,6 @@ const session = require('express-session')
 const passport = require('passport');
 const flash = require('express-flash')
 const db = require('./config/connections')
-const cors = require('cors')
 const dotenv = require('dotenv')
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
@@ -35,7 +34,6 @@ app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/js', express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/uploads', express.static(path.join(__dirname, 'public/products-uploads')));
-app.use(cors())
 
 //express-session configuration
 app.use(session({

@@ -10,7 +10,7 @@ const ObjectId = require('mongodb').ObjectId
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-   
+  
       res.render('users/users', { title: `HUGO BOSS` })
 
 });
