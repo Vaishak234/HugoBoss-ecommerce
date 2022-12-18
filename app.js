@@ -12,6 +12,7 @@ const dotenv = require('dotenv')
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
+const paymentRouter = require('./routes/payment');
 
 const app = express();
 dotenv.config()
@@ -68,6 +69,7 @@ db.connect((err) => {
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
+app.use('/payment', paymentRouter);
 
 
 

@@ -203,20 +203,11 @@ module.exports = {
                $group: {
                   _id: null,
                   quantity: { $sum: '$quantity' },
-                  delevery: { $sum :'$product.delevery'},
+                  delevery: { $sum :{ $multiply: ['$quantity', '$product.delevery'] }},
                   order: { $sum: { $multiply: ['$quantity', '$product.price'] } },
+                  total: { $sum: { $multiply: ['$quantity', {$add:['$product.price','$product.delevery']}] } },
                }
             },
-             {
-                $project: {
-                   quantity: 1,
-                   order: 1,
-                   delevery: 1,
-                   total:{$add:['$delevery','$order']}
-                   
-                  }
-              }
-         
             
          ]).toArray()
          resolve(cart);
@@ -277,7 +268,7 @@ module.exports = {
    },
    placeOrder: (orderDetails, { products} , userDetails) => {
     
-      console.log(products);
+     
       return new Promise((resolve, reject) => {
          console.log(orderDetails);
          let status = orderDetails.payment === 'cod' ? 'placed' : 'pending'
@@ -294,9 +285,9 @@ module.exports = {
             element.user= ObjectId(orderDetails.user),
             element.payment= orderDetails.payment,
             element.status= status,
-            element.cancelled = false
-            element.delevered = false
-            element.review= false
+            element.cancelled = false,
+            element.delevered = false,
+            element.review= false 
          });
          
          let placeOrder = {
@@ -514,24 +505,24 @@ module.exports = {
             })
       })
    },
-   // confirmPayment: (orderId,userId) => {
-   //    return new Promise(async(resolve, reject) => {
-   //       let product = await db.get().collection(collections.ORDER_COLLECTION).updateMany({ _id: ObjectId(orderId) ,user: ObjectId(userId)  },
-   //          {
-   //             $set: {
-   //                'products.$[].status': 'placed'
-   //             }
-   //         })
-   //        resolve(product)
-   //    })
-   // },
-   //  paymentFailed: (orderId ,userId) => {
-   //    return new Promise((resolve, reject) => {
-   //       db.get().collection(collections.ORDER_COLLECTION).deleteOne({ _id: ObjectId(orderId), user: ObjectId(userId)  }).then(response => {
-   //            resolve(response);
-   //         })
-   //    })
-   // },
+   confirmPayment: (orderId,userId) => {
+      return new Promise(async(resolve, reject) => {
+         let product = await db.get().collection(collections.ORDER_COLLECTION).updateMany({ _id: ObjectId(orderId) ,user: ObjectId(userId)  },
+            {
+               $set: {
+                  'products.$[].status': 'placed'
+               }
+           })
+          resolve(product)
+      })
+   },
+    paymentFailed: (orderId ,userId) => {
+      return new Promise((resolve, reject) => {
+         db.get().collection(collections.ORDER_COLLECTION).deleteOne({ _id: ObjectId(orderId), user: ObjectId(userId)  }).then(response => {
+              resolve(response);
+           })
+      })
+   },
    getBannedUser: (userId) => {
        return new Promise(async(resolve, reject) => {
            try {
@@ -542,5 +533,40 @@ module.exports = {
          }
          
        })
-    }
+   },
+   getPaymentDetails: (orderId) => {
+     return new Promise((resolve, reject) => {
+        db.get().collection(collections.ORDER_COLLECTION).aggregate([
+           { $match: { _id: orderId } },
+           {
+              $unwind:"$products"
+           },
+           {
+              $project:{product:'$products.item',size:'$products.size',quantity:'$products.quantity'}
+           },
+           {
+                $lookup: {
+                  from: collections.PRODUCTS_COLLECTION,
+                  localField: "product",
+                  foreignField: "_id",
+                  as: "orderedProducts"
+               }
+           },
+           {
+              $unwind:"$orderedProducts"
+           },
+           {
+              $project:{title:'$orderedProducts.title',price:'$orderedProducts.price',delevery:'$orderedProducts.delevery',size:1,quantity:1}
+           },
+        ]).toArray()
+         .then(response => {
+           resolve(response)
+         })
+         .catch(error => {
+           console.log(error);
+         })
+
+
+     })
+   }
 }

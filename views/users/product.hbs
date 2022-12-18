@@ -28,6 +28,7 @@
         <h4 class="title">{{product.title}}</h4>
         <p class="price">Rs. {{product.price}}</p>
         <p class="color">Colour :  {{product.color}}</p>
+        <p class="delevery">Delevery :  {{product.delevery}}</p>
            
             <select {{#if product.outOfDelevery}}disabled{{/if}} required id="sizeInp" name="cateogry"  >
               <option hidden value="">Select Size</option>
@@ -183,6 +184,12 @@
     .product__right .price{
         font-size: 20px;
         margin-bottom: 20px;
+
+    }
+    .product__right .delevery{
+        font-size: 16px;
+        margin-bottom: 17px;
+        margin-top: -7px;
 
     }
     .product__right .color{

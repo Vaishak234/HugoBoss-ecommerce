@@ -68,7 +68,7 @@ router.get('/cart',isAuth,isBanned, (req, res) => {
   userHelpers.getCart(userId).then(async (cart) => {
     
     let getTotal = await userHelpers.getTotal(userId)
-    console.log(cart);
+    console.log(getTotal)
     res.render('users/cart',{title:`HUGO BOSS-cart`,userId , cart ,getTotal:getTotal[0]})
 
   })
@@ -212,7 +212,6 @@ router.post('/payment',isAuth,isBanned, async (req, res) => {
   let userDetails = await userHelpers.getUserDetails(req.user._id)
   let totalAmount = await userHelpers.getTotal(ObjectId(req.user._id))
  
-  req.session.amount = totalAmount[0].total
   
   userHelpers.placeOrder(req.body, products, userDetails, totalAmount).then((response) => {
     
@@ -220,9 +219,9 @@ router.post('/payment',isAuth,isBanned, async (req, res) => {
     if (req.body.payment === 'cod') {
       res.json({order:'true',payment:'cod'})
       
-    } else if (req.body.payment === 'paytm') {
-      
-       res.json({order:'true',payment:'paytm',amount:totalAmount.delevery+totalAmount.order})
+    } else if (req.body.payment === 'card') {
+       req.session.placedOrderId = response.insertedId
+       res.json({order:'true',payment:'card',amount:totalAmount[0].total})
       
   
     }

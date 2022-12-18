@@ -128,8 +128,8 @@
                   </div>
 
                    <div class="payment__options">
-                     <input disabled required  type="radio" name="payment" value="paytm" id="paytm__btn">
-                      <label for="paytm__btn">paytm</label>
+                     <input  required  type="radio" name="payment" value="card" id="card__btn">
+                      <label for="card__btn">card</label>
                   </div>
                    <p class="text-danger" style="display: none;" id="errMsg">please select a payment option for continue.</p>
                   <p style="margin-top: 15px;">Total : <span>Rs.{{getTotal.total}}</span></p>
@@ -324,7 +324,7 @@
      async function confirmOrder(user) {
       
       let isCodChecked = document.getElementById('cod__btn').checked
-      let isPaytmChecked = document.getElementById('paytm__btn').checked
+      let isPaytmChecked = document.getElementById('card__btn').checked
       
       if(isCodChecked || isPaytmChecked){
          let payment = document.querySelector("input[type='radio'][name=payment]:checked").value
@@ -344,8 +344,8 @@
         .then(async(data) =>{
            console.log(data)
            if(data.order){
-              if(data.payment == 'paytm'){
-                //location.href = '/payment/paynow-paytm'
+              if(data.payment == 'card'){
+                location.href = '/payment/card'
        
                }
                else{
