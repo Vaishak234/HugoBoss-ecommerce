@@ -1,9 +1,11 @@
 <div class="header__background">
     {{>users/header loggedIn}}
 </div>
- <div class="loaderContainer">
+ <section  class="loginContainer">
+
+    <div class="loaderContainer">
         <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
-     </div>
+  </div>
 <div id="productsContainer" class="profile__container">
   
      <div class="profile__left">
@@ -55,9 +57,13 @@
 
     </div>
 </div>
+ </section>
 
 <style>
-    .loaderContainer{
+      .loginContainer{
+     min-height: 80vh;
+  }
+  .loaderContainer{
        position: absolute;
        top: 40%;
        left: 50%;
@@ -73,6 +79,7 @@
         justify-content: center;
         gap: 50px;
         margin-top: 100px;
+        display: none;
     }
     .profile__left{
         display: flex;

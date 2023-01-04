@@ -2,16 +2,16 @@ var express = require('express');
 var router = express.Router();
 const userHelpers = require('../helpers/userHelpers')
 const passport = require('passport')
-const {isAuth, isBanned } = require('../middleware/authMiddleware')
+const {isAuth, isBanned, isUser } = require('../middleware/authMiddleware');
 require('../config/passport')(passport)
 const ObjectId = require('mongodb').ObjectId
 
 
 
 /* GET users listing. */
-router.get('/', (req, res) => {
-  
-      res.render('users/users', { title: `HUGO BOSS` })
+router.get('/', isAuth, isBanned ,isUser, async (req, res) => {
+ 
+          res.render('users/users', { title: `HUGO BOSS` })
 
 });
 
@@ -178,6 +178,7 @@ router.get('/my-orders', isAuth , async(req, res) => {
   let userid = req.user._id
   
   let orderproducts = await userHelpers.getOrderProducts(userid)
+  console.log(orderproducts);
   res.render('users/orders',{title:`HUGO BOSS-orders`,products:orderproducts})
 })
 
@@ -239,6 +240,21 @@ router.get('/search-product/:key',isBanned, async(req, res) => {
     res.json({status:true,products})
   }
 
+})
+
+
+router.get('/cart/products-quantity', async(req, res) => {
+  if (req.user) {
+    let getQuantity = await userHelpers.getCartQuantity(req.user._id)
+    if (getQuantity.length != 0) {
+       quantity =getQuantity[0].quantity
+    } else {
+      quantity = 0
+     }
+  } else {
+     quantity = 0
+  }
+  res.json({ status: true  , quantity })
 })
 
 

@@ -3,8 +3,11 @@
 </div>
 
 
-<section id="productsContainer">
-    <div class="register__container">
+<section class="loginContainer" >
+    <div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+     </div>
+    <div id="productsContainer" class="register__container">
         <div class="register">
             <h2 class="title">Create an Account</h2>
           
@@ -16,7 +19,7 @@
                 <p class=" text-danger"> <i class="fa-solid fa-exclamation me-2"></i> {{alert.msg}}</p>
                 {{/if}}
                 <button type="submit">Create account</button>
-                <a href="/auth/login">Already have an account ? Signup.</a>
+                <a href="/auth/login">Already have an account ? SignIn.</a>
             </form>
         </div>
     </div>
@@ -26,6 +29,16 @@
 
 
 <style>
+    .loginContainer{
+     min-height: 80vh;
+  }
+  .loaderContainer{
+       position: absolute;
+       top: 40%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+    }
+    
    .header__background{
         background-color: black;
     }
@@ -34,6 +47,7 @@
         height: 80vh;
         display: flex;
         align-items: center;
+        display: none;
         
     }
     .register{

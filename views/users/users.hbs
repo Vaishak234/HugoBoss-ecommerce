@@ -1,4 +1,40 @@
-{{>users/hero}}
 
 
-{{>users/footer}}
+<div class="loaderContainer">
+        <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
+</div>
+
+<section class="heroContainer">
+
+    {{>users/hero}}
+    {{>users/footer}}
+</section>
+
+
+
+
+<style>
+    .loaderContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+ .heroContainer{
+    display: flex;
+    flex-direction: column;
+    display: none;
+
+ }
+
+</style>
+
+<script>
+
+    window.addEventListener('load',()=>{
+        
+           document.querySelector('.loaderContainer').style.display = "none"
+           document.querySelector('.heroContainer').style.display = "flex"
+      
+    })
+</script>

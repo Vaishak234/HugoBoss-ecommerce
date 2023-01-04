@@ -65,7 +65,8 @@ module.exports = function (passport) {
           email:profile.emails[0].value,
           authType: 'google',
           role: 'user',
-          banned :false 
+          banned: false,
+          isAdmin:false
       }
       try {
         

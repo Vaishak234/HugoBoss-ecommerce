@@ -381,9 +381,9 @@ module.exports = {
                   images: "$orderProducts.images",
                   color: "$orderProducts.color",
                   price: "$orderProducts.price",
-                  delevery: "$orderProducts.delevery",
-                  orderAmount: { $multiply: ["$orderProducts.price", "$quantity"] },
-                  totalAmount: { $add: [{ $multiply: ["$orderProducts.price", "$quantity"] }, "$orderProducts.delevery"] }
+                  delevery: { $sum :{ $multiply: ['$quantity', '$orderProducts.delevery'] }},
+                  orderAmount: { $sum: { $multiply: ['$quantity', '$orderProducts.price'] } },
+                  totalAmount: { $sum: { $multiply: ['$quantity', {$add:['$orderProducts.price','$orderProducts.delevery']}] } },
                }
             },
             {
@@ -507,19 +507,25 @@ module.exports = {
    },
    confirmPayment: (orderId,userId) => {
       return new Promise(async(resolve, reject) => {
-         let product = await db.get().collection(collections.ORDER_COLLECTION).updateMany({ _id: ObjectId(orderId) ,user: ObjectId(userId)  },
+         try {
+            let product = await db.get().collection(collections.ORDER_COLLECTION).updateMany({ _id: ObjectId(orderId) ,user: ObjectId(userId)  },
             {
                $set: {
                   'products.$[].status': 'placed'
                }
            })
           resolve(product)
+         } catch (error) {
+            throw error
+         }
       })
    },
     paymentFailed: (orderId ,userId) => {
       return new Promise((resolve, reject) => {
          db.get().collection(collections.ORDER_COLLECTION).deleteOne({ _id: ObjectId(orderId), user: ObjectId(userId)  }).then(response => {
               resolve(response);
+         }).catch((error) => {
+              throw error
            })
       })
    },
@@ -568,5 +574,58 @@ module.exports = {
 
 
      })
+   },
+   getMensProduct: () => {
+      return new Promise((resolve, reject) => {
+         db.get().collection(collections.PRODUCTS_COLLECTION).find({ cateogry: 'mens' }).limit(12).toArray().then(response => {
+            resolve(response)
+         }).catch(error => {
+            throw error
+         })
+      })
+   },
+   getWomensProduct: () => {
+      return new Promise((resolve, reject) => {
+         db.get().collection(collections.PRODUCTS_COLLECTION).find({ cateogry: 'womens' }).limit(12).toArray().then(response => {
+            resolve(response)
+         }).catch(error => {
+            throw error
+         })
+      })
+   },
+   getKidsProduct: () => {
+      return new Promise((resolve, reject) => {
+         db.get().collection(collections.PRODUCTS_COLLECTION).find({ cateogry: 'kids' }).limit(12).toArray().then(response => {
+            resolve(response)
+         }).catch(error => {
+            throw error
+         })
+      })
+   },
+   getAccessoriesProduct: () => {
+      return new Promise((resolve, reject) => {
+         db.get().collection(collections.PRODUCTS_COLLECTION).find({ cateogry: 'accessories' }).limit(12).toArray().then(response => {
+            resolve(response)
+         }).catch(error => {
+            throw error
+         })
+      })
+   },
+   getCartQuantity: (userId) => {
+      return new Promise((resolve, reject) => {
+         db.get().collection(collections.CART_COLLECTION).aggregate([
+            { $match: { user: ObjectId(userId) } },
+            {
+               $unwind:'$products'
+            }, {
+               $project:{_id:null , quantity:'$products.quantity'}
+            },
+            {
+               $group:{_id:null ,quantity: { $sum: '$quantity' }}
+            }
+         ]).limit(12).toArray().then(response => { 
+            resolve(response)
+         })
+      })
    }
 }

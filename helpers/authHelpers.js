@@ -5,14 +5,19 @@ const bcrypt = require('bcryptjs')
 const otpGenerator = require('otp-generator')
 const dotenv = require('dotenv')
 dotenv.config()
-const twilio = require('twilio')(process.env.accountSid,process.env.authToken)
+
+var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+
+const twilio = require('twilio')(accountSid,authToken)
 
 module.exports = {
     registerUser: (userDetails) => {
         return new Promise(async (resolve, reject) => {
             let hashedPassword = await bcrypt.hash(userDetails.password, 10)
             userDetails.password = hashedPassword
-            userDetails.authType = 'local'
+           userDetails.authType = 'local'
+           userDetails.isAdmin=false
             if (hashedPassword) {
                 db.get().collection(collections.USERS_COLLECTION).insertOne(userDetails).then(async (response) => {
                     if (response) {
@@ -52,9 +57,9 @@ module.exports = {
             let hashedOtp = await bcrypt.hash(otp, 10)
         
             twilio.messages.create({
-               from: "+14246228369",
+               from: process.env.TWILIO_MOBILENUMBER,
                to: `+91${mobile}`,
-               body: `your otp for change password is ${otp} ,otp is valid for 60 second`
+               body: `your otp for change password is ${otp} ,otp is valid for 60 second`,
             }).then(async (res) => {
                 
                let otpExist = await db.get().collection(collections.OTP_COLLECTION).findOne({ mobile: mobile })

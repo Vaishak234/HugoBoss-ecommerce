@@ -4,13 +4,14 @@ const ObjectId = require('mongodb').ObjectId
 const bcrypt = require('bcryptjs')
 
 module.exports = {
+    
     getAllUsers: () => {
         return new Promise(async(resolve, reject) => {
             try {
                 let users = await db.get().collection(collections.USERS_COLLECTION).find().toArray()
                 resolve(users)
             } catch (error) {
-                throw error
+                reject(error)
             }
         })
     },
@@ -20,7 +21,7 @@ module.exports = {
                 let products = await db.get().collection(collections.PRODUCTS_COLLECTION).find().toArray()
                  resolve(products)
             } catch (error) {
-                throw error
+                reject(error)
             }
         })
     },
@@ -30,7 +31,7 @@ module.exports = {
                  let product = await db.get().collection(collections.PRODUCTS_COLLECTION).findOne({ _id: ObjectId(productId) })
                  resolve(product)
             } catch (error) {
-                throw error
+                reject(error)
             }
         })
     },
@@ -39,7 +40,7 @@ module.exports = {
             db.get().collection(collections.PRODUCTS_COLLECTION).insertOne(productDetails).then((response) => {
                 resolve(response)
             }).catch(error => {
-                throw error
+                reject(error)
             })
         })
     },
@@ -48,7 +49,7 @@ module.exports = {
             db.get().collection(collections.PRODUCTS_COLLECTION).deleteOne({_id:ObjectId(productId)}).then((response) => {
                 resolve(response)
             }).catch(error => {
-                throw error
+                reject(error)
             })
         })
     },
@@ -81,7 +82,7 @@ module.exports = {
             }).then((response) => {
                 resolve(response)
             }).catch(error => {
-                throw error
+                reject(error)
             })
         })
     },
@@ -112,7 +113,7 @@ module.exports = {
             }).then((response) => {
                 resolve(response)
             }).catch(error => {
-                throw error
+                reject(error)
             })
         })
     },
@@ -183,7 +184,7 @@ module.exports = {
                  
               resolve(orderProducts);
             } catch (error) {
-                throw error
+                reject(error)
             }
         
       })
@@ -257,7 +258,7 @@ module.exports = {
               ]).toArray()
               resolve(orderProducts);
          } catch (error) {
-            throw error
+            reject(error)
          }
          
         
@@ -356,7 +357,7 @@ module.exports = {
          
          resolve(orderProduct[0]);
          } catch (error) {
-            throw error
+            reject(error)
          }
          
       })
@@ -375,7 +376,7 @@ module.exports = {
             ).then(response => {
                 resolve(response)
             }).catch(error => {
-                throw error
+                reject(error)
             })
         })
     },
@@ -408,7 +409,7 @@ module.exports = {
              ]).toArray()
             resolve({users,products,orders,delevery})
          } catch (error) {
-            throw error
+            reject(error)
          }
          
         })
@@ -427,8 +428,6 @@ module.exports = {
                    $group: {
                        _id:"$item"
                    }
-               },{
-                   $limit:10
                },
                 {
                $lookup: {
@@ -450,10 +449,10 @@ module.exports = {
                }
                
            ]).toArray()
-           console.log(topProducts);
+           console.log(topProducts.length);
            resolve(topProducts)
          } catch (error) {
-            throw error
+            reject(error)
          }
          
        })
@@ -469,7 +468,7 @@ module.exports = {
             ).then(response => {
                 resolve(response)
             }).catch(error => {
-                throw error
+                reject(error)
             })
         })
     },
@@ -484,7 +483,7 @@ module.exports = {
             ).then(response => {
                 resolve(response)
             }).catch(error => {
-                throw error
+                reject(error)
             })
         })
     }

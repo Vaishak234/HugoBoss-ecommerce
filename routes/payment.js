@@ -1,18 +1,19 @@
 const express = require('express')
 const userHelpers = require('../helpers/userHelpers')
+const { isAuth } = require('../middleware/authMiddleware')
 const router = express.Router()
 require('dotenv').config()
 
 const stripe = require("stripe")(process.env.STRIPE_SECRETKEY)
 
-router.get('/card', async (req, res) => {
+router.get('/card',isAuth , async (req, res) => {
     
     console.log(req.session.placedOrderId);
     let paymentDetails = await userHelpers.getPaymentDetails(req.session.placedOrderId)
     console.log(paymentDetails);
      try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ['card'],
       mode: "payment",
       line_items: paymentDetails.map(item => {
         return {
@@ -39,17 +40,15 @@ router.get('/card', async (req, res) => {
 
 })
 
-
-
-router.get('/success', (req, res) => {
+router.get('/success',isAuth , (req, res) => {
 
     userHelpers.confirmPayment(req.session.placedOrderId, req.user._id).then((response) => {
         res.redirect('/my-orders')
     })
 })
 
-router.get('/cancel', (req, res) => {
-    
+router.get('/cancel',isAuth , (req, res) => {
+     
      userHelpers.paymentFailed(req.session.placedOrderId, req.user._id).then((response) => {
         res.render('users/payment-failed')
     })

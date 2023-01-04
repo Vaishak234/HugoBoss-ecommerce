@@ -3,7 +3,7 @@ const adminHelpers = require('../helpers/adminHelpers');
 var router = express.Router();
 const upload = require('../middleware/multer')
 const fs = require('fs')
-const { isAdminAuth} = require('../middleware/authMiddleware')
+const { isAdminAuth, isAdmin } = require('../middleware/authMiddleware')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 require('../config/passport')(passport)
@@ -12,17 +12,23 @@ require('../config/passport')(passport)
 
 
 /* GET home page. */
-router.get('/',isAdminAuth,  async function (req, res) {
-  
-  //Fetch number of products orders users and delevery from database
-  let { users , products ,orders ,delevery} = await adminHelpers.getNumber()
-  //Fetch top selling products from database
-  let topProducts = await adminHelpers.getTopSellingProduct()
-  //Fetch orders from database
-  let ordersDetails = await adminHelpers.getLimitOrders()
-  res.render('admin/dashboard', { title: 'Admin-Dashboard', users, products, orders: orders[0], delevery: delevery[0], ordersDetails, topProducts })  //render dashboard.hbs file in admin folder 
-  
-});
+router.get('/',isAdminAuth,isAdmin, async function (req, res) {
+    if (!req.user.isAdmin) {
+       req.logOut(err => {
+          res.redirect('/auth/admin-login')
+      })
+    }
+    else {
+             //Fetch number of products orders users and delevery from database
+         let { users , products ,orders ,delevery} = await adminHelpers.getNumber()
+         //Fetch top selling products from database
+         let topProducts = await adminHelpers.getTopSellingProduct()
+         //Fetch orders from database
+         let ordersDetails = await adminHelpers.getLimitOrders()
+         res.render('admin/dashboard', { title: 'Admin-Dashboard', users, products, orders: orders[0], delevery: delevery[0], ordersDetails, topProducts })  //render dashboard.hbs file in admin folder 
+         
+      }
+   });
 
 // Get products page
 router.get('/products',isAdminAuth, async function (req, res) {

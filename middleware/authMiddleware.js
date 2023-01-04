@@ -1,4 +1,5 @@
 const userHelpers = require('../helpers/userHelpers')
+require('dotenv').config()
 
 module.exports = {
 
@@ -19,7 +20,7 @@ module.exports = {
         }
     },
     isAdminAuth: (req, res, next) => {
-        if (req.isAuthenticated()) {
+        if (req.user) {
             next();
         } else {
             res.redirect("/auth/admin-login");
@@ -39,6 +40,20 @@ module.exports = {
             res.render('users/bannedPage', { title: `HUGO BOSS` })
         } else {
             next()
+        }
+    },
+    isAdmin: (req,res,next) => {
+        if (req.user.email === process.env.ADMIN_EMAIL) {
+            next()
+        } else {
+            req.logout(()=>{})
+        }
+    },
+    isUser: (req,res,next) => {
+        if (req.user.email !== process.env.ADMIN_EMAIL) {
+            next()
+        } else {
+            req.logout(()=>{})
         }
     }
 }

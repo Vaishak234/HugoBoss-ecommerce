@@ -2,7 +2,9 @@
     {{>users/header }}
 </div>
 
- <div class="loaderContainer">
+ <section class="loginContainer">
+
+    <div class="loaderContainer">
         <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
  </div>
 <section id="cartContainer" class="cart__section">
@@ -91,11 +93,15 @@
      {{/if}}
 </div>
 </section>
+ </section>
 
 {{>users/footer}}
 
 <style>
-    .loaderContainer{
+      .loginContainer{
+     min-height: 80vh;
+  }
+  .loaderContainer{
        position: absolute;
        top: 40%;
        left: 50%;
@@ -109,6 +115,7 @@
         min-height: 100vh;
         background-color:  rgb(250, 249, 248);
         padding: 50px 40px;
+        display: none;
     }
     .cart{
         margin: auto;
@@ -232,6 +239,19 @@
             document.getElementById('circularLoader').style.display ='none'
        
     })
+     
+    function changeQuantityHeader(){
+         
+     fetch('/cart/products-quantity')
+        .then(res=>res.json())
+        .then(data=>{  
+           if(data.status){
+            console.log(data)
+             document.getElementById('numberOfProducts').innerText = data.quantity
+           }
+         })
+    
+    }
 
       function deleteProduct(id,size){
          let deleteProduct = document.getElementById(id+size)
@@ -277,6 +297,7 @@
                total.innerHTML = 'Rs.'+data.getTotal[0].total
                order.innerHTML = 'Rs.'+data.getTotal[0].order
                delevery.innerHTML = 'Rs.'+data.getTotal[0].delevery
+               changeQuantityHeader()
             }
             if(data.removeproduct){
                 location.reload()

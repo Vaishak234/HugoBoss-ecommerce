@@ -47,6 +47,7 @@ app.use(session({
 
 app.use(flash())
 
+
 //passport strategy configuration 
 app.use(passport.initialize())
 app.use(passport.session())

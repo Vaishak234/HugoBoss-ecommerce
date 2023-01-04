@@ -1,0 +1,109 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="/images/logo.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css"> 
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    
+
+    <header>
+    
+  <div class="header__container">
+   
+        <a href="/" style="text-decoration: none;"><h1>HUGO BOSS</h1></a>
+   
+
+  
+        <ul class="middle">
+            <li><a href="/items/mens">Mens</a></li>
+            <li><a href="/items/womens">Womens</a></li>
+            <li><a href="/items/kids">Kids</a></li>
+            <li><a href="/items/accessories">Accessories</a></li>
+           
+        </ul>
+ 
+   
+        <ul class="right"> 
+            <li class="search_li">
+          
+                <input type="search" id="searchInp" oninput="searchProduct()" class="searchInp" placeholder="search">
+                <i class="fa-solid fa-magnifying-glass"> </i>
+              
+            </li>
+            
+            <li>
+               <div class="dropdown">
+              <button class="dropbtn"><i class="fa-solid fa-user"></i></button>
+             
+               <div class="dropdown-content" >
+                 <a href="/profile">Profile</a>
+               </div>
+              
+              </div>
+            </li>
+
+            <li><a href="/cart"><i class="fa-sharp fa-solid fa-bag-shopping" style="text-decoration: underline;"></i> 
+              <span id="numberOfProducts">0</span>
+             </a></li>
+        </ul>
+  
+  </div>
+
+ 
+
+</header>
+
+  <div class="displayProducts" >
+    
+     
+  </div>
+    
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    a , a:hover{
+        color: white;
+        text-decoration: none;
+    }
+    li{
+        list-style: none;
+    }
+    .header__container{
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        height: 80px;
+        background-color: black;
+        padding: 20px 40px;
+    }
+    .middle{
+        display: flex;
+        gap: 60px;
+    }
+    .right{
+        display: flex;
+        justify-content: space-between;
+        gap: 60px;
+        align-items: center;
+    }
+  
+   
+    
+      
+</style>
+
+</body>
+</html>

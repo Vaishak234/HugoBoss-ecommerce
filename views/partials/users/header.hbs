@@ -37,7 +37,9 @@
               </div>
             </li>
 
-            <li><a href="/cart"><i class="fa-sharp fa-solid fa-bag-shopping"></i></a></li>
+             <li><a href="/cart"><i class="fa-sharp fa-solid fa-bag-shopping" style="text-decoration: underline;"></i> 
+              <span id="numberOfProducts">0</span>
+             </a></li>
         </ul>
   
   </div>
@@ -232,7 +234,7 @@
       let displayProducts = document.querySelector('.displayProducts')
    
       if(searchInp != '') {
-         fetch('/search-product/'+searchInp)
+         fetch('http://localhost:3000/search-product/'+searchInp)
         .then(res=>res.json())
         .then(data=>{
           console.log(data)

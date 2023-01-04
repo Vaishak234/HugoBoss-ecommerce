@@ -287,18 +287,30 @@
 
 <script>
 
-
+ 
     window.addEventListener('load',()=>{
        
             document.getElementById('productsContainer').style.display ='flex'
             document.getElementById('circularLoader').style.display ='none'
        
     })
-
-    
+   
     let imgId = document.getElementById('imgId').value
     function viewImg() {
         location.href = '/product-image/'+imgId
+    }
+
+    function changeQuantityHeader(){
+         
+     fetch('/cart/products-quantity')
+        .then(res=>res.json())
+        .then(data=>{  
+           if(data.status){
+            console.log(data)
+             document.getElementById('numberOfProducts').innerText = data.quantity
+           }
+         })
+    
     }
 
      function addToCart(id){
@@ -318,16 +330,20 @@
                        document.getElementById('circularLoader1').style.display= 'none'
                        document.getElementById('addText').style.display= 'block'
                        document.getElementById('addAlert').style.display= 'block'
+                        changeQuantityHeader()
                        }
                     },1000)
 
                     setTimeout(()=>{
+                       
                        document.getElementById('addAlert').style.display= 'none'
 
                     },3000)
 
                 })
     }
+
+    
    
 
    function shareProduct() {
