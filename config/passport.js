@@ -66,7 +66,7 @@ module.exports = function (passport) {
           authType: 'google',
           role: 'user',
           banned: false,
-          isAdmin:false
+         
       }
       try {
         

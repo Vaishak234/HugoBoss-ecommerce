@@ -16,8 +16,8 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let hashedPassword = await bcrypt.hash(userDetails.password, 10)
             userDetails.password = hashedPassword
-           userDetails.authType = 'local'
-           userDetails.isAdmin=false
+            userDetails.authType = 'local'
+           
             if (hashedPassword) {
                 db.get().collection(collections.USERS_COLLECTION).insertOne(userDetails).then(async (response) => {
                     if (response) {
