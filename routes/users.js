@@ -137,7 +137,9 @@ router.post('/checkout', async (req, res) => {
   req.body.user = req.user._id
 
   if (req.body.firstname == '' || req.body.lastname == '' || req.body.address == '' || req.body.pincode == '' || req.body.city == '' || req.body.mobile == '') {
-    res.render('users/checkout', { error: 'Please fill your address to continue purchase' })
+        
+    let getTotal = await userHelpers.getTotal(req.user._id)
+    res.render('users/checkout', { error: 'Please fill your address to continue purchase',getTotal:getTotal[0] })
   } else {
  
     userHelpers.addDetails(req.body).then((response) => {
