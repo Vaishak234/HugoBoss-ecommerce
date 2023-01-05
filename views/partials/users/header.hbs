@@ -256,4 +256,20 @@
         displayProducts.style.display = 'none'
       }
   }
+
+  function getProductsAmount(){
+    
+         fetch('http://localhost:3000/cart/products-quantity')
+        .then(res=>res.json())
+        .then(data=>{
+          console.log(data)
+          if(data.quantity){
+            document.getElementById('numberOfProducts').innerText = data.quantity
+          }else{
+              document.getElementById('numberOfProducts').innerText = 0
+          }
+        })
+  }
+
+ getProductsAmount()
 </script>
