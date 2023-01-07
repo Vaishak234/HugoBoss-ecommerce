@@ -47,7 +47,7 @@ module.exports = function (passport) {
 })
 )),
 
-// passsport-google strategy for users login
+// passsport-google strategy for users login.......
  passport.use(new googleStrategy({
 
     clientID: process.env.GOOGLE_CLIENTID,

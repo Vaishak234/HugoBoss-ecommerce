@@ -65,7 +65,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/google',passport.authenticate('google',{scope:['profile','email']}))
 
-router.get('/google/callback',passport.authenticate('google',{failureRedirect:'/auth/login',successRedirect:'/'}) )
+router.get('/google/callback',passport.authenticate('google',{failureRedirect:process.env.URL+'/auth/login',successRedirect:process.env.URL+'/'}) )
 
 router.get('/user/forgot-password', (req, res) => {
   
