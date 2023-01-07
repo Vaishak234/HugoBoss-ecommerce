@@ -13,12 +13,8 @@ require('../config/passport')(passport)
 
 /* GET home page. */
 router.get('/',isAdminAuth,isAdmin, async function (req, res) {
-    if (!req.user.isAdmin) {
-       req.logOut(err => {
-          res.redirect('/auth/admin-login')
-      })
-    }
-    else {
+    
+        
              //Fetch number of products orders users and delevery from database
          let { users , products ,orders ,delevery} = await adminHelpers.getNumber()
          //Fetch top selling products from database
@@ -27,7 +23,7 @@ router.get('/',isAdminAuth,isAdmin, async function (req, res) {
          let ordersDetails = await adminHelpers.getLimitOrders()
          res.render('admin/dashboard', { title: 'Admin-Dashboard', users, products, orders: orders[0], delevery: delevery[0], ordersDetails, topProducts })  //render dashboard.hbs file in admin folder 
          
-      }
+     
    });
 
 // Get products page

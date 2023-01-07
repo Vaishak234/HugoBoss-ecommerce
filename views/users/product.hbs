@@ -323,6 +323,7 @@
                     document.getElementById('addBtn').style.background= 'rgba(0,0,0,.1)'
                     document.getElementById('circularLoader1').style.display= 'block'
                     document.getElementById('addText').style.display= 'none'
+                    document.getElementById('addBtn').disabled = true;
 
                     setTimeout(()=>{
                          if(data.status) {
@@ -330,6 +331,7 @@
                        document.getElementById('circularLoader1').style.display= 'none'
                        document.getElementById('addText').style.display= 'block'
                        document.getElementById('addAlert').style.display= 'block'
+                    document.getElementById('addBtn').disabled = false;
                         changeQuantityHeader()
                        }
                     },1000)

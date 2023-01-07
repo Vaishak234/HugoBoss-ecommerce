@@ -38,6 +38,7 @@ module.exports = function (passport) {
         const isMatch = await bcrypt.compare(password, user.password)
         if (isMatch) {
             user.role = 'admin'
+            console.log(user);
             return done(null,user)
         } else {
             return done(null,false,{message:'incorrect password'})
