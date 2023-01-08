@@ -21,7 +21,7 @@ router.get('/',isAdminAuth,isAdmin, async function (req, res) {
          let topProducts = await adminHelpers.getTopSellingProduct()
          //Fetch orders from database
          let ordersDetails = await adminHelpers.getLimitOrders()
-         res.render('admin/dashboard', { title: 'Admin-Dashboard', users, products, orders: orders[0], delevery: delevery[0], ordersDetails, topProducts })  //render dashboard.hbs file in admin folder 
+         res.render('admin/dashboard', { title: 'Admin-Dashboard',admin:req.user, users, products, orders: orders[0], delevery: delevery[0], ordersDetails, topProducts })  //render dashboard.hbs file in admin folder 
          
      
    });
