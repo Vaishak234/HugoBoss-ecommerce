@@ -235,6 +235,7 @@ router.post('/payment',isAuth,isBanned, async (req, res) => {
   
 router.get('/search-product/:key',isBanned, async(req, res) => {
   console.log(req.params.key);
+  console.log('hi');
   let key = req.params.key
 
   let products = await userHelpers.searchProducts(key)

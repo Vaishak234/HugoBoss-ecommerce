@@ -234,7 +234,7 @@
       let displayProducts = document.querySelector('.displayProducts')
    
       if(searchInp != '') {
-         fetch('http://localhost:3000/search-product/'+searchInp)
+         fetch('/search-product/'+searchInp)
         .then(res=>res.json())
         .then(data=>{
           console.log(data)
@@ -259,7 +259,7 @@
 
   function getProductsAmount(){
     
-         fetch('http://localhost:3000/cart/products-quantity')
+         fetch('/cart/products-quantity')
         .then(res=>res.json())
         .then(data=>{
           console.log(data)
