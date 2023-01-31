@@ -1,11 +1,7 @@
 
 
- a{
+ a , a:hover{
   color:white;
-  text-decoration: none;
-}
- a:hover{
-  color: white;
   text-decoration: none;
 }
 
@@ -16,6 +12,7 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0; 
 }
+
 body{
      background-color:  rgb(250, 249, 248);
      color: black;
@@ -24,7 +21,7 @@ body{
      padding: 0;
 }
 
-  .backTop{
+  /* .backTop{
     
        background-color: black;
        width: 36px;
@@ -40,4 +37,4 @@ body{
        right: 25px;
        z-index: 999999;
        padding: 2px;
-   }
+   } */

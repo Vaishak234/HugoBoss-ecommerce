@@ -151,6 +151,7 @@
     display: flex;
     justify-content: center;
     gap: 50px;
+    padding: 30px;
     padding-top: 50px;
   }
   .section__card{
@@ -233,6 +234,41 @@
    .cart__right .bottom p{
     font-size: 13px;
     margin-top: 8px;
+   }
+
+   @media (max-width:1000px) {
+     .checkout{
+      flex-direction: column;
+      align-items: center;
+     }
+     .cart__right{
+       width: 600px;
+     }
+   }
+   @media (max-width:700px) {
+     .address__card{
+      width: 500px;
+     }
+     .cart__right{
+       width: 500px;
+     }
+     .section__card{
+      width: 500px;
+     }
+   }
+   @media (max-width:600px) {
+     .address__card{
+      width: 420px;
+     }
+     .cart__right{
+       width: 420px;
+     }
+     .section__card{
+      width: 420px;
+     }
+     .rows{
+      gap: 20px;
+     }
    }
 </style>
 

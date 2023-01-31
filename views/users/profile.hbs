@@ -1,5 +1,5 @@
 <div class="header__background">
-    {{>users/header loggedIn}}
+    {{>users/header}}
 </div>
  <section  class="loginContainer">
 
@@ -11,8 +11,7 @@
      <div class="profile__left">
         <div class="content">
              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI8AAACPCAMAAAD0vXihAAAAMFBMVEXk5ueutLe/xMbo6eqqsLTf4eLX2tu1ur23vb/Jzc/R1NbM0NK6v8La3d7Cx8myt7rdSdfBAAADNElEQVR4nO2b25arIAxAhQDiBf3/vx2p9jq2JKmJc9ZhP81b9wqQYMg0TaVSqVQqlUqlUqlUKpX/AIDGZ5Y/4GyXhdTZds600fZZ6jwVgGBn58wN5+YunGUETW/2iKE5wwj61u36GDcmdSHw8Y3NxWjS1gnvZS5C0WuGCLoPwdmMgqJQWWeh1xKCCaNjnJIQdBgbtSWDHhWdzOwVfBLWZqGV14FPeefXinXSK4Y46U8kYR8/k3RMlA0Q8qjfkT5jRB1jRkkbdOp5CJDoDiLunowVXLBAXq4FuaQIlqEjWFeBo2Pk7maUUnFHrGjAwPJxYhto4vkEKZ+R5yNWVFuezyTlw8iGmVHKh6djWikfTnY2gncOps9fi4+Yz1/bz7zzLnfj4OVDI5YPmfWiF9Jh3FYvPmL1tND0ecMspcNM0FZMBzgb2g1y91V8a+MBwSYH9Ws5I/nFDPQTL3c7zHjygsm2gMg7WnA3XyB/8gg3pIgNF9ndc4HkI9lM2CAVDXEbWgdR580Ae8akz9aNiNMRb/bewFxcncJevgJj+b1Ja7FWCmnI6b02rUCYP71X6j4PXoTe3+6dGZRlVqNk90LkzKQenKuRn1rjnmXicOqEQhOGaNyGsUM6ZRbgSSnPk4QFD6cPlOTff1SA5rQhlxyVNHSTHdt5XTAzt3GcuiEk5SGX5cd86OK6f38fr+WLtJ361CjtJGj6Ke6IvGi51g5eOk7QpLdTLXtOcyd53gD6sRiY19WLnZARpMmxGojOCgwoLcWB47IRD25J5VLFbK5uMYoH3j/AfxObK+1Bl3tgtul+4ewRdX+5eB2jk/n+DntUcFa+DRF4fPZD8s2+hkRMfwi++CqD4XAb88V3GXXUBw1vxIQ8WoPGcVqccjqG01SU2Ts3qE9ivM43AeKm5k1qECC2Gw6sEe8gdDp5cz5U8DqsMSgq+DEKz3y3pYJcMbG8/ILDvsvr6GAHpI+98XwkosKjcNY3MK8b4pn5EUTZAFyz+yDKb6vileKJYtWA/f/JkaJYVnVKxZ3ieinl5o3ybIfi6TKIlJh0fYqzQZrZx5Q/fiCMVpXi1yEoU9CpVCqVSuVf4AcawSWbiHL18wAAAABJRU5ErkJggg==" alt="" class="profile__image">
-             <h5><span>Hi ,</span> {{#if user.firstName}} {{user.firstName}} {{user.lastName}} {{else}} user {{/if}}</h5>
-            
+             <h5><span>Hi ,</span> {{#if user.firstName}} {{user.firstName}} {{user.lastName}} {{else}} user {{/if}}</h5> 
         </div>
           <div class="contentBox">
                 <a href="/my-orders"> <span>My orders</span> <i class="fa-solid fa-chevron-right"></i></a>
@@ -24,7 +23,7 @@
 
      <div class="profile__right">
        <h4 class="title">Personal informations</h4>
-       <div class="inpBox">
+       <div class="nameInpBox">
           <input type="text" name="firstName" value="{{user.firstName}}" id="" placeholder="firstname">
           <input type="text" name="lastName" value="{{user.lastName}}" id="" placeholder="lastname">
        </div>
@@ -33,7 +32,7 @@
           <input type="email" style="cursor: no-drop;"  readonly  value="{{user.email}}" name="email" id="" placeholder="email">
        </div>
          <p class="genderLabel">Gender</p>
-         <div class="inpBox">
+         <div class="radioInpBox">
        
           <div class="radioBox">  <input type="radio" id="maleBtn"  value="male"  name="gender" > <span>male</span></div>
           <div class="radioBox">  <input type="radio" id="femaleBtn"  value="female" name="gender" > <span>Female</span></div>
@@ -59,8 +58,10 @@
 </div>
  </section>
 
+ {{>users/footer}}
+
 <style>
-      .loginContainer{
+  .loginContainer{
      min-height: 80vh;
   }
   .loaderContainer{
@@ -72,7 +73,6 @@
     .header__background{
         background-color: black;
     }
-    
     .profile__container{
         width: 100%;
         display: flex;
@@ -80,6 +80,7 @@
         gap: 50px;
         margin-top: 100px;
         display: none;
+        padding: 15px;
     }
     .profile__left{
         display: flex;
@@ -129,7 +130,7 @@
         width: 100%;
     }
     .profile__right{
-        width: 700px;
+        width: 600px;
         padding: 17px 22px;
         background-color: white;
     }
@@ -142,10 +143,20 @@
         display: flex;
         gap:80px;
         margin-bottom: 40px ;
-
-
     }
-    .inpBox input  {
+    .profile__right .nameInpBox{
+        width: 100%;
+        display: flex;
+        gap:80px;
+        margin-bottom: 40px ;
+    }
+    .profile__right .radioInpBox{
+        width: 100%;
+        display: flex;
+        gap:80px;
+        margin-bottom: 40px ;
+    }
+    .inpBox input ,.radioInpBox input ,  .nameInpBox input  {
         border: none;
         outline: none;
         border-bottom: 1px  solid  rgba(0, 0, 0, 0.742);
@@ -167,6 +178,71 @@
         background-color: black;
         border: none;
         outline: none;
+    }
+    @media (max-width:1200px) {
+      .profile__container{
+        gap: 20px;
+        margin-top: 100px;
+        padding: 20px;
+      }
+       
+    }
+
+    @media (max-width:1000px) {
+      .profile__container{
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+      }
+       .content{
+        width: 600px;
+      }
+      .contentBox{
+        width: 600px;
+      }
+    }
+    @media (max-width:800px) {
+      .profile__container{
+        width: 500px;
+        margin: auto;
+        margin-top: 40px;
+      }
+      .profile__right{
+        width: 500px;
+      }
+       .content{
+        width: 500px;
+      }
+      .contentBox{
+        width: 500px;
+      }
+    }
+    @media (max-width:600px) {
+      .profile__container{
+        margin: auto;
+        margin-top: 40px;
+        margin-left: -6px;
+      }
+       .content{
+        width: 400px;
+      }
+      .contentBox{
+        width: 400px;
+      }
+      .profile__right{
+        width: 400px;
+      }
+       .profile__right .inpBox{
+        display: flex;
+        gap:30px;
+        margin-bottom: 40px ;
+        flex-direction: column;
+      }
+      .inpBox input  {
+        margin-top: 0;
+        width: 80%;
+      }
+      
     }
 
 </style>

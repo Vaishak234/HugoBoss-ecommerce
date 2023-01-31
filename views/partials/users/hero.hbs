@@ -34,6 +34,7 @@
         transform: translate(-50%,-50%);
         text-align: center;
         color: white;
+        padding: 0px  10px;
     }
     .hero__text h3{
         font-size: 25.6px;
@@ -76,7 +77,27 @@
       opacity: 1;
       right: 0;
     }
-     
+
+    @media (max-width:1200px) {
+      .hero__text h3{
+        font-size: 24.6px;
+       }
+       .hero__text h1{
+           font-size: 45px;
+       }
+       
+    }
+
+    @media (max-width:800px) {
+      .hero__text h3{
+         font-size: 23.6px;
+         margin-bottom: 15px;
+       }
+       .hero__text h1{
+           font-size: 38px;
+       }
+    }
+
     
  
 </style>

@@ -1,30 +1,29 @@
  
-<header>
-     <div class="header__top">
+<header id="header">
+        <div class="header__top">
         <p class="topTitle"></p>
     </div>
   <div class="header__container">
    
-        <a href="/" style="text-decoration: none;"><h1>HUGO BOSS</h1></a>
+       <a href="/" ><h1 class="header__title">HUGO BOSS</h1></a>
    
 
   
-        <ul class="middle">
+        <ul class="middle" id="middle">
             <li><a href="/items/mens">Mens</a></li>
             <li><a href="/items/womens">Womens</a></li>
             <li><a href="/items/kids">Kids</a></li>
             <li><a href="/items/accessories">Accessories</a></li>
-           
-        </ul>
- 
-   
-        <ul>
             <li class="search_li">
           
                 <input type="search" id="searchInp" oninput="searchProduct()" class="searchInp" placeholder="search">
                 <i class="fa-solid fa-magnifying-glass"> </i>
               
             </li>
+        </ul>
+ 
+   
+           <ul class="right">
             
             <li>
                <div class="dropdown">
@@ -37,9 +36,18 @@
               </div>
             </li>
 
-             <li><a href="/cart"><i class="fa-sharp fa-solid fa-bag-shopping" style="text-decoration: underline;"></i> 
-              <span id="numberOfProducts">0</span>
-             </a></li>
+             <li>
+               <a href="/cart">
+                 <i class="fa-sharp fa-solid fa-bag-shopping" style="text-decoration: underline;"></i> 
+                 <span id="numberOfProducts">0</span>
+                </a>
+             </li>
+             <li class="barIcon" onclick="openNav()">
+                <i class="fa-solid fa-bars"></i>
+             </li>
+             <li class="closeIcon"  onclick="closeNav()">
+                <i class="fa-solid fa-xmark"></i>
+             </li>
         </ul>
   
   </div>
@@ -47,128 +55,104 @@
  
 
 </header>
-
-  <div class="displayProducts" >
     
-     
-  </div>
-    
+<script>
 
+  function openNav(){
+    document.getElementById('middle').style.display = 'flex'
+    document.getElementsByClassName('barIcon')[0].style.display = "none"
+    document.getElementsByClassName('closeIcon')[0].style.display = "block"
+    document.body.style.overflow = "hidden"
+  }
+
+  function closeNav(){
+      document.getElementById('middle').style.display = 'none'
+      document.getElementsByClassName('barIcon')[0].style.display = "block"
+      document.getElementsByClassName('closeIcon')[0].style.display = "none"
+      document.body.style.overflow = "scroll"
+  }
+
+</script>
+ 
 <style>
-
-  .displayProducts{
-    width: 400px;
-    margin-top: 10px;
-    position: absolute;
-    right: 20px;
-    background-color: black;
-    min-height: 0;
-    max-height: 74.5vh;
-    display: none;
-    overflow-y: hidden;
-    padding: 16px 0;
-    z-index: 9999;
-    padding-bottom: 20px;
-  }
-  .displayProducts a:hover{
-    text-decoration: none;
-  }
-  .displayProducts .products{
-    display: flex;
-    padding: 0;
-    align-items: center;
-    color: white;
-    min-height: 80px;
-    overflow-y: hidden;
-    gap: 40px;
-    justify-content: start;
-    padding-left: 30px;
-
-  }
-  .displayProducts .products .title{
-        color: white;
-        width: 280px;
-  }
-  .displayProducts .products img{
-    width: 30px;
-  }
-  .searchInp{
-    border: none;
-    outline: none;
-    border-bottom: 2px solid white;
-    background-color: transparent;
-    color: white;
-    margin-right: -20px;
     
-   }
-  
-   .searchInp::placeholder{
-    color: white;
-   }
-   .middle{
-     text-align: center;
-     margin-left: 190px;
-   }
-    .header__top{
-        width: 100%;
-        height: 40px;
-        background-color: black;
-        text-align: center;
-        padding-top: 8px;
-        color: white;
+    header{
+      width: 100%;
+      height: 110px;
+      position: relative;
+      padding: ;
+     
     }
-    .header__top p{
-        font-size: 16px;
-        text-decoration: underline;
-        font-weight: 600;
-        color: white;
-        vertical-align: middle;
-
-
+    header:hover{
+      background-color: black;
+    }
+    .header__top{
+      background-color: black;
+      color: white;
+      margin: auto;
+      text-align: center;
+      padding-top: 8px;
     }
     .header__container{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-       height: 70px;
-       padding: 12px 50px;
-       padding-bottom: 20px;
-       padding-top: 26px;
-       transition: all .3s ease-in;
-    }
-    .header__container:hover {
-        background-color: black;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 50px;
 
     }
-    .header__container  h1{
-        font-weight: 700;
-        font-size: 28px;
+    .header__container .header__title{
+      font-weight: 600;
+      font-size: 34px;
+      padding-left: 40px;
     }
-    ul{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 45px;
-        padding-top: 13px;
-        color: white;
+    .header__container ul{
+     
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
     }
-   
-    li{
-        list-style: none;
+    .header__container ul li{
+      list-style: none;
     }
-    a{
-        text-decoration: none;
-        color: rgb(255, 255, 255);
-        font-size: 18px;
-        font-weight: 700;
+    .header__container ul li a{
+      font-weight: 600;
+      font-size: 18px;
     }
-    a:hover{
-        text-decoration: underline;
+    .header__container .middle{
+      width: 700px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+     
     }
-    .dropbtn {
+    .header__container .right{
+      width: 150px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 30px;
+    }
+    .header__container .right .barIcon , .header__container .right .closeIcon{
       color: white;
-      padding: 16px;
+      display: none;
+    }
+    .header__container .middle .searchInp{
+      border: none;
+      outline: none;
+      background-color: transparent;
+      border-bottom: 1px solid white;
+      color: white;
+    }
+    .header__container .middle .searchInp::placeholder {
+      color: white;
+    }
+    
+     .dropbtn {
+      color: white;
+     
       border: none;
       cursor: pointer;
       background-color: transparent;
@@ -204,12 +188,10 @@
     .dropdown:hover .dropdown-content {
       display: block;
     }
-   
-    
-    
+
     .topTitle::before {
             content: "Free Shipping to India on orders above ₹8000";
-            animation: animate infinite 16s;
+            animation: animate infinite 10s;
             padding-left: 10px;
         }
   
@@ -221,10 +203,60 @@
   
             66% {
                 content: "Black Friday Event: Men | Women";
-            }
+          }
   
          
+    }
+
+    @media (max-width:1400px) {
+      
+       .header__container .middle{
+         width: 660px;
         }
+    }
+
+    @media (max-width:1200px) {
+       
+       .header__container .middle{
+         flex-direction: column;
+         width: 100%;
+         height: 83vh;
+         background-color: black;
+         z-index: 1;
+         position: fixed;
+         top: 100px;
+         padding: 60px;
+         padding-top: 90px;
+         display: none;
+       }
+       .header__container .right {
+          width: 180px;
+          margin-right: 12px;
+       }
+       .header__container .right .barIcon{
+         display: flex;
+        }
+    }
+
+    @media (max-width:800px) {
+       .header__top{
+        font-size: 13px;
+       }
+       .header__container{
+          padding-bottom: 35px;
+       }
+       .header__container .header__title{
+          font-size: 30px;
+          padding-left: 18px;
+        }
+        .header__container .right {
+          width: 160px;
+          padding-right: 18px;
+       }
+    }
+
+
+
 </style>
 
 <script>
@@ -271,5 +303,8 @@
         })
   }
 
- getProductsAmount()
+
+  getProductsAmount()
+
+  
 </script>

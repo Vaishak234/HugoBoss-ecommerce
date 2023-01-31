@@ -33,6 +33,7 @@
     background-color: rgba(0, 0, 0, 0.795);
     display: flex;
     align-items: center;
+    padding: 20px;
 }
 
 /* Slideshow container */
@@ -43,14 +44,14 @@
   transition: .5 all ease;
 }
 
-img{
+.image__container img {
     height: 600px;
     object-fit: contain;
 }
 .mySlide{
     display: flex;
     align-items: center;
-     transition: .5 all ease;
+    transition: .5 all ease;
 
 }
 
@@ -98,7 +99,11 @@ img{
   width: 100%;
   text-align: center;
 }
-
+@media (max-width:700px) {
+  .image__container img{
+    height: 520px;
+  }
+}
 
 
 
