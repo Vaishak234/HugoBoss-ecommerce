@@ -11,8 +11,12 @@
      <div id="productsContainer" class="product__container" style="display:none;">
       <h1 class="title">{{pTitle}} collections</h1>
     <div class="products">
-       
-        {{#each products}}
+
+      {{#if products}}
+
+         
+
+         {{#each products}}
        <a href="/product/{{this._id}}">
          <div class="product">
            {{#each this.images}}
@@ -26,6 +30,13 @@
         </div>
        </a>
        {{/each}}
+
+
+      {{else }}
+       
+       <p >no products</p>
+        
+       {{/if}}
     </div>
   </div>
 
@@ -104,6 +115,17 @@
       .products{
         gap: 25px;
       }
+      .products{
+        padding: 25px;
+        
+      }
+    }
+
+    @media (max-width:1000px) {
+     
+      .products{
+        padding: 16px;
+       }
     }
 </style>
 

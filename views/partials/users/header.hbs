@@ -52,27 +52,15 @@
   
   </div>
 
+  <div class="displayProducts">
+      
+  </div>
+
  
 
 </header>
     
-<script>
 
-  function openNav(){
-    document.getElementById('middle').style.display = 'flex'
-    document.getElementsByClassName('barIcon')[0].style.display = "none"
-    document.getElementsByClassName('closeIcon')[0].style.display = "block"
-    document.body.style.overflow = "hidden"
-  }
-
-  function closeNav(){
-      document.getElementById('middle').style.display = 'none'
-      document.getElementsByClassName('barIcon')[0].style.display = "block"
-      document.getElementsByClassName('closeIcon')[0].style.display = "none"
-      document.body.style.overflow = "scroll"
-  }
-
-</script>
  
 <style>
     
@@ -207,6 +195,29 @@
   
          
     }
+    .displayProducts{
+      width: 500px;
+      max-height: 70vh;
+      background-color: rgb(0, 0, 0);
+      overflow-y: scroll;
+      position: absolute;
+      top: 120px;
+      right: 50px;
+      color: white;
+      z-index:2;
+    
+    }
+    .displayProducts .searchproducts{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px;
+      color: white;
+     
+    }
+    .displayProducts .searchproducts img{
+      width: 50px;
+    }
 
     @media (max-width:1400px) {
       
@@ -257,9 +268,27 @@
 
 
 
+
 </style>
 
 <script>
+
+
+  
+  function openNav(){
+    document.getElementById('middle').style.display = 'flex'
+    document.getElementsByClassName('barIcon')[0].style.display = "none"
+    document.getElementsByClassName('closeIcon')[0].style.display = "block"
+    document.body.style.overflow = "hidden"
+  }
+
+  function closeNav(){
+      document.getElementById('middle').style.display = 'none'
+      document.getElementsByClassName('barIcon')[0].style.display = "block"
+      document.getElementsByClassName('closeIcon')[0].style.display = "none"
+      document.body.style.overflow = "scroll"
+  }
+
 
   function searchProduct() {
       let searchInp = document.querySelector('#searchInp').value
@@ -271,13 +300,11 @@
         .then(data=>{
           console.log(data)
           if(data.status && data.products.length != 0){
-              console.log('hi')
               displayProducts.style.display = 'block'
                data.products.forEach((product) => {
 
-                   const movies = '<a href = "/product/'+product._id+'" ><div class="products"><img src="/uploads/' + product.images[0] + '" alt=""><p class="title">' + product.title + '</p></div> </a>';
+                   const movies = '<a href = "/product/'+product._id+'" ><div class="searchproducts"><img src="/uploads/' + product.images[0] + '" alt=""><p class="title" style="color:white">' + product.title + '</p></div> </a>';
                    displayProducts.insertAdjacentHTML("beforeend", movies);
-                   console.log(movies)
                  });
                 
              }else{

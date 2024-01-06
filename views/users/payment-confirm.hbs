@@ -1,0 +1,42 @@
+
+    <div class="row my-5">
+      <div class="col-md-4 offset-md-4">
+        <div class="card">
+          <div class="card-body">
+            <form class="" method="post" action="/payment/paynow-paytm">
+              <div class="form-group">
+                <label for="">CostomerId: </label>
+                <input class="form-control"  readonly  type="text" id="customerId" name="name" value="{{paymentDetails.customerId}}">
+              </div>
+              <div class="form-group">
+                <label for="">Email: </label>
+                <input class="form-control" readonly type="text" id="customerEmail" name="email" value="{{paymentDetails.customerEmail}}">
+              </div>
+              <div class="form-group">
+                <label for="">Phone: </label>
+                <input class="form-control" readonly type="text" id="customerPhone" name="phone" value="{{paymentDetails.customerPhone}}">
+              </div>
+                <div class="form-group">
+                <label for="">Amount: </label>
+                <input class="form-control" readonly type="text" id="amount" name="amount" value="{{paymentDetails.amount}}">
+              </div>
+              <div class="form-group">
+                <button class="btn form-control btn-primary mt-2">Pay Now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<style>
+
+  
+  .card{
+    margin-top: 150px;
+  }
+  
+</style>
+
+
+    

@@ -197,6 +197,9 @@
         width: 35px;
         height: 35px;
         font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .cart__right{
         background-color: white;
@@ -244,14 +247,28 @@
        .cart__right{
           width: 600px;
        }
+       .cart__left .content .middle {
+         gap: 20px;
+        }
    }
    @media (max-width:700px) {
        .cart__left{
-         width: 450px;
+         width: 460px;
        }
        .cart__right{
-          width: 450px;
+          width: 460px;
        }
+        .cart__left .content .middle {
+         gap: 20px;
+        }
+        .cart__left img{
+        height: 170px;
+         }
+       .cart__left .bottom button{
+        width: 26px;
+        height: 26px;
+        font-size: 22px;
+        }
    }
    
 </style>

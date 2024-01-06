@@ -140,13 +140,15 @@ router.post('/editproduct/:id',upload.array('images',8) ,async function (req, re
     
     
     // files and a callback function is passing as parameters of function deleteFiles
-    deleteFiles(files, function (err) {
-         if (err) {
-           console.log(err);
-         } else {
-           console.log('all files removed');
-         }
+      deleteFiles(files, function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('all files removed');
+        }
       });
+        
+    
     
         let images = []                 //images is an empty array initially and push each files selected to images from req.files 
         req.files.forEach((item) => {
