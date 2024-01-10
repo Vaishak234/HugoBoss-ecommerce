@@ -17,7 +17,7 @@
                 <img src="/uploads/{{this}}" alt="" id="{{this}}" onmouseover="changeImage('{{this}}')">
               {{/if}}
         {{/each}}
-        <div class="details">
+        <div class="details one">
              <p class="title">{{this.title}}</p>
              <p>Rs.{{this.price}}</p>
              <p class="color">{{this.size}}</p>
@@ -65,6 +65,8 @@
     {{/if}}
 </div>
 
+    {{>users/footer}}
+
 
 <style>
     .loaderContainer{
@@ -87,7 +89,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-bottom: 100px;
         padding-top: 30px;
     }
     .orders{
@@ -173,7 +174,59 @@
         margin-right: 10px;
     }
     @media (max-width:1000px) {
-        
+     .details .title{
+        font-size: 15px;
+     }
+    .details .price{
+        font-size: 17px;
+    }
+     .details .color{
+        font-size: 12px;
+    }
+    .cancelBtn{
+        background-color: rgba(0, 0, 0, 0.703);
+        color: white;
+        padding: 7px 15px;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    }
+    @media (max-width:800px) {
+    
+    .orders{
+        margin-top: 30px;
+        display: flex;
+        width: 100%;
+        max-width: 1000px;
+        justify-content: space-between;
+        background-color: white;
+        padding: 15px 20px;
+    }
+    .orders img{
+        width: 80px;
+        height: 100px;
+    }
+     .details .title{
+        font-size: 15px;
+     }
+    .details .price{
+        font-size: 17px;
+    }
+     .details .color{
+        font-size: 12px;
+    }
+    .cancelBtn{
+        background-color: rgba(0, 0, 0, 0.703);
+        color: white;
+        padding: 7px 10px;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .one{
+        display: none;
+    }
     }
 </style>
 

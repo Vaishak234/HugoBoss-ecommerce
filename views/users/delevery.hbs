@@ -189,6 +189,7 @@
     padding: 30px;
     padding-top: 50px;
     
+    
   }
   .section__card{
     width: 600px;
@@ -206,7 +207,8 @@
      margin-bottom: 0;
   }
   .address__card{
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     margin-bottom: 25px;
     display: none;
     margin-top: 15px;
@@ -348,12 +350,22 @@
      .checkout{
       flex-direction: column;
       align-items: center;
+      padding: 30px 10px;
      }
      .section__card, .address__card{
-        width: 450px;
+        width: 100%;
+        max-width: 450px;
      }
      .cart__right{
-      width: 450px;
+        width: 100%;
+        max-width: 450px;
+     }
+     .rows{
+      flex-direction: column;
+      gap: 10px;
+     }
+     .inp__rows{
+      width: 100%;
      }
    }
    

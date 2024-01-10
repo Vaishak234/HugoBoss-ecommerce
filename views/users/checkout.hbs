@@ -170,7 +170,8 @@
      margin-bottom: 0;
   }
   .address__card{
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     margin-bottom: 25px;
     margin-top: 15px;
   }
@@ -258,16 +259,23 @@
    }
    @media (max-width:600px) {
      .address__card{
-      width: 420px;
+      max-width: 420px;
+      width: 100%;
      }
      .cart__right{
-       width: 420px;
+       max-width: 420px;
+       width: 100%;
      }
      .section__card{
-      width: 420px;
+      max-width: 420px;
+      width: 100%;
      }
      .rows{
-      gap: 20px;
+      flex-direction: column;
+      gap: 10px;
+     }
+     .inp__rows{
+      width: 100%;
      }
    }
 </style>

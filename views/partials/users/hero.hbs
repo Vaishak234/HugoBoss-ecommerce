@@ -5,16 +5,113 @@
      <h3>New in today: Suits | Shirts | Blazers | Trousers</h3>
      <h1>Black Friday Event Countdowns:</h1>
      <h1>Upto 40% off</h1>
-     <button><span>shop now</span></button>
+     <button class="heroBtn"><span>shop now</span></button>
+   </div>
+
+  
+
+
    </div>
    
-</div>
 
+
+<div class="hero__banner">
+  
+
+   <div class="hero__bannerText">
+     <h1 class="hero__bannerTitle">SALE</h1>
+     <h3 class="hero__bannerCaption">Enjoy Our Latest Collections</h3>
+    
+     <div class="hero__bannerButtons">
+        <a class="linkBtn" href="/items/mens"><span>FOR HIM</span></a>
+        <a class="linkBtn" href="/items/womens"><span>FOR HER</span></a>
+     </div>
+   </div>
+
+  
+   </div>
+
+   <div class="hero__category">
+      <div class="left">
+         <div class="items">
+           <div class="caption">
+            <h2>EXPLORE </h2>
+            <h2>MENSWARE</h2>
+            <h2>HIGHLIGHTS</h2>
+          </div>
+          <a href="/items/mens"><span>MENS</span></a>
+         </div>
+      </div>
+      <div class="right">
+        <div class="items">
+           <div class="caption">
+            <h2>EXPLORE </h2>
+            <h2>WOMENS</h2>
+          </div>
+          <a href="/items/womens"><span>WOMENS</span></a>
+         </div>
+      </div>
+   </div>
+
+   <div class="hero__content">
+    <div class="text">
+      <h3 class="title">Fall/Winter sale: discover our latest offers for the season</h3>
+      <p>Now that the sale has officially started, this is your last chance to shop our Fall/Winter 2023 collection. This season, versatile silhouettes meet sophisticated winter styling, with a combination of bold touches and subtle tailoring ensuring you leave a lasting impression wherever you go.</p>
+ 
+<p>
+Seize this opportunity to take stock of your winter-weather wardrobe with our extensive range of discounted signature styles. Stay ahead of the style curve this season - think sleek coats and <b>jackets</b>, <b>sweaters</b>, textured loungewear, and sophisticated accessories sure to help you stay under wraps but firmly on-trend. Build a casual outfit from the ground up with our <b>sleek trainers</b>, or take a refined ensemble to new heights with perfectly <b>crafted shoes</b>.</p>
+
+ 
+<p>
+For the winter and into the months beyond our sale offers a range of style essentials for both business and leisure. Form the foundations of your seasonal wardrobe, courtesy of our <b> men's</b> and <b>women's</b> essentials including jeans and <b>clean-cut tailored</b> trousers. All this, and more, is waiting for you to discover in the online winter sale. We hope you enjoy shopping with us.  </p>
+</div>
+   </div>
+
+
+<div class="hero__banner2">
+    <div class="content">
+        <h2 class="title">HUGO BOSS Newsletter</h2>
+        <p class="text">Get the latest news from the HUGO BOSS Online Store regarding new products, exclusive specials, lifestyle and fashion trends.</p>
+    </div>
+  </div>
+
+   <div class="hero__links">
+      <p>shop all mensware <a class="arrowBtn" href="/items/mens"> <i class="fa-solid fa-arrow-right"></i> </a> </p> 
+   </div>
+   
 
 
 
 <style>
-
+  .hero__banner2{
+        width: 100%;
+        height: 40vh;
+        background-image: url('/images/banner3.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        margin-block: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 40px;
+      
+  }
+  .hero__banner2 .content{
+    background-color: white;
+    width: 500px;
+    padding: 20px;
+    height: 70%;
+  }
+  .hero__banner2 .content .title{
+    font-weight: 600;
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .hero__banner2 .content .text{
+    line-height: 1.5;
+    word-spacing: 1px;
+  }
   
     .hero__section{
         height: 100vh;
@@ -44,7 +141,7 @@
         font-size: 50px;
         font-weight: 800;
     }
-    .hero__text button {
+    .hero__text .heroBtn {
         margin-top: 60px;
         background-color: transparent;
         border: white solid 2px;
@@ -53,14 +150,14 @@
         font-weight: 600;
         padding: 5px 18px;
     }
-       .hero__text button span {
+    .hero__text .heroBtn span {
       cursor: pointer;
       display: inline-block;
       position: relative;
       transition: 0.5s;
     }
     
-     .hero__text button  span:after {
+     .hero__text .heroBtn  span:after {
       content: '\00bb';
       position: absolute;
       opacity: 0;
@@ -69,14 +166,193 @@
       transition: 0.5s;
     }
     
-    .hero__text button:hover span {
+    .hero__text .heroBtn:hover span {
       padding-right: 25px;
     }
 
-    .hero__text button:hover span:after {
+    .hero__text .heroBtn:hover span:after {
       opacity: 1;
       right: 0;
     }
+
+    .hero__banner{
+        height: 70vh;
+        width: 100%;
+        background-image: url('/images/banner1.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: right;
+        cursor: pointer;
+        position: relative;
+    }
+    .hero__bannerText{
+        position: absolute;
+        width: 100%;
+        top: 58%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        color: white;
+        padding: 0px  10px;
+        padding-left:150px;
+    }
+    .hero__bannerCaption{
+      color: white;
+    }
+    .hero__bannerTitle{
+      color: #ffb59c;
+      font-size: 60px;
+      font-weight: 600;
+    }
+    .hero__bannerButtons{
+      display: flex;
+      gap: 30px;
+    }
+    .hero__bannerButtons .linkBtn{
+      background-color: white;
+      color: black;
+      padding: 8px 16px;
+      border: none;
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+
+
+  .hero__category{
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
+  .hero__category .left{
+        background-image: url('/images/mens.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        width: 40%;
+        height: 600px;
+        position: relative;
+  }
+  .hero__category .left .items{
+    position: absolute;
+    color: white;
+    top: 50%;
+    left: 10%;
+  
+  }
+  .hero__category .left .items h2{
+     font-size: 42px;
+     font-weight: 600;
+  }
+  .hero__category .left a{
+    position: absolute;
+    background-color: white;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: none;
+    margin-top: 12px;
+  }
+  .hero__category .right{
+        background-image: url('/images/womens.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        width: 45%;
+        height: 600px;
+        position: relative;
+  }
+   .hero__category .right .items{
+    position: absolute;
+    color: white;
+    top: 10%;
+    left: 10%;
+  
+  }
+  .hero__category .right .items h2{
+     font-size: 42px;
+     font-weight: 600;
+  }
+   .hero__category .right a{
+    position: absolute;
+    background-color: white;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: none;
+    margin-top: 12px;
+  }
+ 
+    .hero__category a span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+    
+     .hero__category a  span:after {
+      content: '\00bb';
+      color: black;
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+    
+    .hero__category a:hover span {
+      padding-right: 25px;
+    }
+
+    .hero__category a:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+  
+  .hero__content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 26px;    
+  }
+  .hero__content .text{
+   width: 800px;
+   max-width: 90%;
+ }
+ .hero__content .text p{
+  letter-spacing: 1px;
+  font-size: 14px;
+ }
+ .hero__content .text .title{
+   font-size: 33px;
+   font-weight: 600;
+   margin-bottom: 22px;
+ }
+ .hero__links{
+  display: flex;
+  justify-content: center;
+  margin-block: 20px;
+ }
+ .hero__links p{
+   font-size: 18px;
+ }
+ .hero__links .arrowBtn{
+   background-color: black;
+   color: white;
+   border: none;
+   padding: 8px;
+ }
+ 
+  
+
+
+
 
     @media (max-width:1200px) {
       .hero__text h3{
@@ -96,7 +372,79 @@
        .hero__text h1{
            font-size: 38px;
        }
+      .hero__section{
+        background-position:70%;
+      }
+     
+    .hero__bannerText{
+        top: 60%;
+        padding-left:40px;
     }
+    .hero__bannerCaption{
+      font-size: 22px;
+    }
+    .hero__bannerTitle{
+      font-size: 40px;
+    }
+    .hero__bannerButtons button{
+      font-size: 16px;
+    }
+
+
+  .hero__category{
+    flex-direction: column;
+    gap: 20px;
+  }
+  .hero__category .left{
+        width: 90%;
+        height: 400px;
+  }
+  .hero__category .left .items{
+    top: 30%;  
+  }
+  .hero__category .left .items h2{
+     font-size: 35px;
+  }
+  .hero__category .left a{
+    font-size: 16px;
+  }
+  .hero__category .right{
+        width: 90%;
+        height: 400px;
+  }
+   .hero__category .right .items{
+    top: 50%;
+  }
+  .hero__category .right .items h2{
+     font-size: 35px;
+  }
+   .hero__category .right a{
+    font-size: 16px;
+  }
+ 
+
+ .hero__content .text{
+   width: 800px;
+   max-width: 90%;
+ }
+
+  .hero__banner2{
+    justify-content: center;
+    width: 100%;
+    padding: 0px;
+
+  }
+  .hero__banner2 .content{
+    width: 400px;
+    max-width: 90%;
+  }
+  .hero__banner2 .content .title{
+    font-size: 24px;
+    margin-bottom: 16px;
+
+  }
+  
+}
 
     
  

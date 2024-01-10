@@ -34,9 +34,9 @@
          <p class="genderLabel">Gender</p>
          <div class="radioInpBox">
        
-          <div class="radioBox">  <input type="radio" id="maleBtn"  value="male"  name="gender" > <span>male</span></div>
-          <div class="radioBox">  <input type="radio" id="femaleBtn"  value="female" name="gender" > <span>Female</span></div>
-          <div class="radioBox">  <input type="radio" id="noneBtn"  value="none" name="gender" checked > <span>None</span></div>
+          <div class="radioBox">  <input  type="radio" id="maleBtn"  value="male"  name="gender" > <label for="maleBtn">male</label></div>
+          <div class="radioBox">  <input type="radio" id="femaleBtn"  value="female" name="gender" > <label for="femaleBtn">Female</label></div>
+          <div class="radioBox">  <input type="radio" id="noneBtn"  value="none" name="gender" checked > <label for="noneBtn">None</label></div>
           <input type="text"  id="genderInp" hidden value="{{user.gender}}">
        </div>
 
@@ -218,31 +218,53 @@
       }
     }
     @media (max-width:600px) {
+     
       .profile__container{
-        margin: auto;
-        margin-top: 40px;
-        margin-left: -6px;
-      }
-       .content{
-        width: 400px;
-      }
-      .contentBox{
-        width: 400px;
-      }
-      .profile__right{
-        width: 400px;
-      }
-       .profile__right .inpBox{
+        width: 100%;
         display: flex;
-        gap:30px;
-        margin-bottom: 40px ;
+        justify-content: center;
+        gap: 50px;
+        margin-top: 100px;
+        display: none;
+        padding: 15px;
+    }
+    .profile__left{
+        width: 100%;
+        
+    }
+    .content{
+        width: 100%;
+        max-width: 400px;
+        padding: 20px 13px;
+    }
+   
+    .contentBox{
+        max-width: 400px;
+        width: 100%;
+    }
+    
+    .profile__right{
+        width: 100%;
+    }
+    .profile__right .title{
+        font-size: 18px;
+    }
+    .profile__right .inpBox{
         flex-direction: column;
-      }
-      .inpBox input  {
-        margin-top: 0;
-        width: 80%;
-      }
-      
+        gap:20px;
+    }
+    .profile__right .nameInpBox{
+        flex-direction: column;
+        gap:20px;
+    }
+    .profile__right .radioInpBox{
+        gap:15px;
+        
+    }
+    .inpBox input ,.radioInpBox input ,  .nameInpBox input  {
+        width: 100%;
+    }
+    
     }
 
 </style>

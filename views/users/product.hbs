@@ -5,23 +5,23 @@
         <div id="circularLoader" class="spinner-border text-primary "   role="status"></div>  
      </div>
 <div id="productsContainer" class="section">
+    
+
 <div class="product__container">
     <div class="product__left">
-       <div class="imageBox">
-        <input type="text" id="imgId" value="{{product._id}}" hidden>
+       <div class="imageBox" onclick="viewImgFN('{{product._id}}')">
         {{#each product.images}}
-          
-               <img src="/uploads/{{this}}" alt="photo" onclick="viewImg()" >
+               <img src="/uploads/{{this}}" alt="photo"  >
           
         {{/each}}
        
        </div>
-       {{!-- <div class="imageSliderBox">
-        <input type="text" id="imgId" value="{{product._id}}" hidden>
-         <div class="slideshow-container">
+
+       <div class="imageSliderBox" >
+         <div class="slideshow-container" onclick="viewImgFN('{{product._id}}')">
            {{#each product.images}}
             <div class="mySlides ">
-               <img src="/uploads/{{this}}" style="width:100%">
+               <img src="/uploads/{{this}}"   style="width:100%">
             </div>
            {{/each}}
          
@@ -30,7 +30,7 @@
            <a class="next" onclick="plusSlides(1)">&#10095;</a>
          </div>
        
-       </div> --}}
+       </div>  
        <div class="contentBox">
           <h5 class="description">{{product.description}}</h5>
           <p class="fit"><span>Fit --</span> {{product.fit}}</p>
@@ -40,6 +40,7 @@
     </div>
    
     <div class="product__right">
+
         <h4 class="title">{{product.title}}</h4>
         <p class="price">Rs. {{product.price}}</p>
         <p class="color">Colour :  {{product.color}}</p>
@@ -133,7 +134,6 @@
         background-color:  rgb(250, 249, 248);
         color: rgb(0, 0, 0);
     }
-
     .product__left{
         width: 70%;
         display: flex;
@@ -156,6 +156,7 @@
         width: 49%;
         height: 700px;
         object-fit: cover;
+        object-position: top;
         
     }
     .product__left .imageBox{
@@ -298,28 +299,29 @@
     }
     
     .imageSliderBox {
+       width: 100%;
+       height: 600px;
        display: flex;
+       justify-content: center;
        align-items: center;
        padding: 20px;
-       flex-direction: row;
-        width: 100%;
-        height: fit-content;
-        background-color: rgba(0, 0, 0, 0.795);
-        display: flex;
-        align-items: center;
-        padding: 20px;
+       display: none;
+
     }
     /* Slideshow container */
     .imageSliderBox .slideshow-container {
       max-width: 1000px;
+      width: 100%;
+      height: 100%;
       position: relative;
       margin: auto;
       transition: .5 all ease;
     }
     
-    .imageSliderBox .image__container img {
-        height: 600px;
-        object-fit: contain;
+    .imageSliderBox .slideshow-container img {
+        width: 100%;
+        height: min-content;
+        object-fit: cover;
     }
     .imageSliderBox .mySlide{
         display: flex;
@@ -363,12 +365,96 @@
       }
 
     @media(max-width:1200px){
+     .product__left img{
+        width: 49%;
+        height: 400px;
+        object-fit: cover;
+        
+     }
+     .contentBox{
+        top: 435px;
+    }
 
+    }
+
+   @media(max-width:1000px){
+    .product__container{
+        flex-direction: column;
+        padding: 0px;
+    }
+     .product__left{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 3px;
+        padding: 0;
+    }
+
+    .product__right{
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        margin-bottom: -150px;
+    }
+     .imageSliderBox{
+        display: flex;
+        width: 60%;
+        height: 40%;
+     }
+     .product__left .imageBox{
+            display: none;
+     }
+    .contentBox{
+        display: none;
+    }
+
+    }
+
+    @media(max-width:1000px){
+
+     .imageSliderBox .prev, .imageSliderBox  .next {
+      padding: 10px;
+      font-size: 14px;
+     }
     }
 
 </style>
 
 <script>
+
+       let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
 
  
     window.addEventListener('load',()=>{
@@ -378,9 +464,9 @@
        
     })
    
-    let imgId = document.getElementById('imgId').value
-    function viewImg() {
-        location.href = '/product-image/'+imgId
+    function  viewImgFN(proId )  {
+        console.log(proId)
+        location.href = '/product-image/'+proId
     }
 
     function changeQuantityHeader(){
